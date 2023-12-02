@@ -1,1 +1,1 @@
-# ios-dinoreaders
+# Dinoreaders-iOS
