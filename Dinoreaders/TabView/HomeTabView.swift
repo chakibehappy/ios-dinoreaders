@@ -7,6 +7,7 @@
 
 import SwiftUI
 import Foundation
+import Combine
 
 struct ResponseData: Codable {
     let success: Bool
@@ -17,7 +18,7 @@ struct Section: Codable {
     let name: String
     let type: String
     let title_icon: String
-    let content: [Book]
+    var content: [Book]
 }
 
 struct Book: Identifiable, Codable {
@@ -25,16 +26,16 @@ struct Book: Identifiable, Codable {
     let uid: String
     let title: String
     let description: String
-    let short_description: String
+    let short_description: String?
     let author: String
     let image_url: String
     let pagecount: Int
-    let favourite: Bool
+    var favourite: Bool
     let reading_level: String
     let read_url: String
     let read_to_me: Bool
-    let level: [AgeLevel]
-    let categories: [Category]
+    let level: [AgeLevel]?
+    let categories: [Category]?
     let lang: String
     let published: Int
     let saved: Int
@@ -158,17 +159,13 @@ struct HomeTabView: View {
                             HStack(spacing: 20) {
                                 if let responseData = responseData {
                                     ForEach(responseData.data[1].content, id: \.id) { book in
-                                        NavigationLink(destination: SingleBookView(book: book)){
-                                            ItemView(item: book, isWhiteText: false)
+                                        NavigationLink(destination: SingleBookView(book_id: book.id)){
+                                            ItemView(item: book, isWhiteText: false, toogleFunction: fetchDataFromAPI)
                                         }
                                     }
                                 }
                             }
                             .padding(.leading, 15)
-                        }
-                        .onAppear {
-                            getUserInfo()
-                            fetchDataFromAPI()
                         }
                         
                         
@@ -187,17 +184,20 @@ struct HomeTabView: View {
                             HStack(spacing: 20) {
                                 if let responseData = responseData {
                                     ForEach(responseData.data[2].content, id: \.id){book in
-                                        NavigationLink(destination: SingleBookView(book: book)){
-                                            ItemView(item: book, isWhiteText: false)
+                                        NavigationLink(destination: SingleBookView(book_id: book.id)){
+                                            ItemView(item: book, isWhiteText: false, toogleFunction : fetchDataFromAPI)
                                         }
                                     }
                                 }
                             }
                             .padding(.leading, 15)
                         }
-                        
                         Spacer()
                     }
+                }
+                .onAppear() {
+                    getUserInfo()
+                    fetchDataFromAPI()
                 }
             }
         }
@@ -288,7 +288,8 @@ struct BookImageView: View{
                     .cornerRadius(5)
                     .frame(width: 130, height: 195)
             case .failure(let error):
-                if error.localizedDescription == "cancelled"{
+                if error.localizedDescription == "cancelled"
+                {
                     BookImageView(path: path)
                 }
                 else{
@@ -306,47 +307,104 @@ struct BookImageView: View{
 }
 
 struct ItemView: View {
-    var item: Book
+    let item: Book
     var isWhiteText: Bool = false
+    var toogleFunction: () -> Void
+    
+    @State var cancellable: AnyCancellable?
     
     var body: some View {
-        VStack(alignment: .leading) {
-            AsyncImage( url: URL(string: item.image_url)) { phase in
-                switch phase {
-                case .empty:
-                    ProgressView()
-                case .success(let image):
-                    image
-                        .resizable()
-                        .scaledToFill()
-                        .clipped()
-                        .cornerRadius(5)
-                        .frame(width: 130, height: 195)
-                case .failure(let error):
-                    if error.localizedDescription == "cancelled"{
-                        BookImageView(path : item.image_url)
+        ZStack{
+            VStack(alignment: .leading) {
+                AsyncImage( url: URL(string: item.image_url)) { phase in
+                    switch phase {
+                    case .empty:
+                        ProgressView()
+                    case .success(let image):
+                        image
+                            .resizable()
+                            .scaledToFill()
+                            .clipped()
+                            .cornerRadius(5)
+                            .frame(width: 130, height: 195)
+                    case .failure(let error):
+                        if error.localizedDescription == "cancelled"{
+                            BookImageView(path : item.image_url)
+                        }
+                        else{
+                            Text("Error: \(error.localizedDescription)")
+                        }
+                    @unknown default:
+                        Text("Unknown state")
                     }
-                    else{
-                        Text("Error: \(error.localizedDescription)")
-                    }
-                @unknown default:
-                    Text("Unknown state")
                 }
+                .frame(width: 130, height: 195)
+                .clipped()
+                .cornerRadius(5)
+                
+                let textColor : Color = Color(red: 57/255, green: 111/255, blue: 162/255)
+                Text(item.title)
+                    .foregroundColor(isWhiteText ? .white : textColor)
+                    .font(.custom("Ruddy-Bold", size: 14))
+                    .fixedSize(horizontal: false, vertical: true)
+                    .lineLimit(2)
+                    .multilineTextAlignment(.leading)
+                Spacer()
             }
-            .frame(width: 130, height: 195)
-            .clipped()
-            .cornerRadius(5)
+            .frame(width: 130, height: 255)
             
-            let textColor : Color = Color(red: 57/255, green: 111/255, blue: 162/255)
-            Text(item.title)
-                .foregroundColor(isWhiteText ? .white : textColor)
-                .font(.custom("Ruddy-Bold", size: 14))
-                .fixedSize(horizontal: false, vertical: true)
-                .lineLimit(2)
-                .multilineTextAlignment(.leading)
-            Spacer()
+            VStack(){
+                HStack(alignment: .top){
+                    Spacer()
+                    Button(action:{
+                        //item.favourite.toggle()
+                        ToogleFavourite(bookId: String(item.id))
+                    }){
+                        Image(item.favourite ? "heart" : "heart_empty")
+                            .resizable()
+                            .frame(width: 24, height: 22)
+                            .scaledToFill()
+                            .clipped()
+                            .padding(.vertical, 8)
+                            .padding(.horizontal, 8)
+                    }
+                }
+                Spacer()
+            }
+            .frame(width: 130, height: 255)
         }
         .frame(width: 130, height: 255)
+    }
+    
+    func ToogleFavourite(bookId : String)
+    {
+        let url = URL(string: API.TOOGLEFAVOURITE_API)!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("Bearer \(UserDefaultManager.UserAccessToken)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+        
+        let body = "book_id=\(bookId)".data(using: .utf8) // Create form data body
+        
+        request.httpBody = body
+        
+        cancellable = URLSession.shared.dataTaskPublisher(for: request)
+                    .map(\.data)
+                    .receive(on: DispatchQueue.main)
+                    .sink(receiveCompletion: { completion in
+                        switch completion {
+                        case .finished:
+                            break // Do nothing for now
+                        case .failure(let error):
+                            print("Error: \(error.localizedDescription)")
+                        }
+                    }, receiveValue: { data in
+                        // Print the raw response data
+                        if let string = String(data: data, encoding: .utf8) {
+                            print("Raw Response: \(string)")
+                            toogleFunction()
+                        }
+                    })
     }
 }
 

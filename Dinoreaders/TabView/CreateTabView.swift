@@ -31,6 +31,8 @@ struct OwnStoryPage: Codable {
 
 struct CreateTabView: View {
     
+    @EnvironmentObject var settings : UserSettings
+    
     @State private var responseData: OwnStoryResponseData?
     @State private var isScrollingEnabled = false
     
@@ -66,34 +68,46 @@ struct CreateTabView: View {
                                                 .foregroundColor(.white)
                                                 .font(.custom("Ruddy-Black", size: 13))
                                             
-                                            StrokeText(text: "Points:", width: 1.25, color: .black)
-                                                .foregroundColor(.white)
-                                                .font(.custom("Ruddy-Black", size: 13))
-                                        }
-                                        
-                                        
-                                        AsyncImage(url: URL(string: UserDefaultManager.UserProfilePic)) { phase in
-                                            switch phase {
-                                            case .empty:
-                                                ProgressView()
-                                            case .success(let image):
-                                                image
-                                                    .resizable()
-                                                    .scaledToFit()
-                                            case .failure(let error):
-                                                Text(error.localizedDescription)
-                                                Image(systemName: "person.fill")
-                                                    .resizable()
-                                                    .scaledToFit()
-                                                    .frame(width: 45, height: 45)
-                                                    .clipShape(Circle())
-                                                    .background(.white)
-                                            @unknown default:
-                                                Text("Unknown state")
+                                            HStack(){
+                                                StrokeText(text: "Points:", width: 1.25, color: .black)
+                                                    .foregroundColor(.white)
+                                                    .font(.custom("Ruddy-Black", size: 13))
+                                                StrokeText(text: String(settings.TotalPoints), width: 1.25, color: .black)
+                                                    .foregroundColor(.white)
+                                                    .font(.custom("Ruddy-Black", size: 13))
+                                                    .padding(.leading, 5)
                                             }
                                         }
-                                        .frame(width: 45, height: 45)
-                                        .clipShape(Circle())
+                                        
+                                        ZStack(){
+                                            AsyncImage(url: URL(string: UserDefaultManager.UserProfilePic)) { phase in
+                                                switch phase {
+                                                case .empty:
+                                                    ProgressView()
+                                                case .success(let image):
+                                                    image
+                                                        .resizable()
+                                                        .scaledToFit()
+                                                case .failure(_):
+                                                    Image(systemName: "person.fill")
+                                                        .resizable()
+                                                        .scaledToFit()
+                                                        .frame(width: 45, height: 45)
+                                                        .clipShape(Circle())
+                                                        .background(.white)
+                                                @unknown default:
+                                                    Text("Unknown state")
+                                                }
+                                            }
+                                            .frame(width: 45, height: 45)
+                                            .clipShape(Circle())
+                                            VStack(){
+                                                Spacer()
+                                                StrokeText(text: "Lv" + String(settings.ReadingLevel), width: 1.25, color: .black)
+                                                    .foregroundColor(.white)
+                                                    .font(.custom("Ruddy-Black", size: 13))
+                                            }
+                                        }
                                     }
                                     .padding(.leading, 10)
                                     .padding(.vertical, 5)
@@ -102,18 +116,21 @@ struct CreateTabView: View {
                                 .background(.yellow)
                                 .cornerRadius(23)
                                 .padding(.all,10)
+                                .frame(height:55)
                             }
                         }
                         
                         HStack{
                             Spacer()
-                            Image("btn_create_story")
-                                .resizable()
-                                .frame(width: 200, height: 300)
-                                .scaledToFill()
-                                .clipped()
-                                .padding(.top, 10)
-                                .padding(.bottom, 20)
+                            NavigationLink(destination:CanvasSelectionView()){
+                                Image("btn_create_story")
+                                    .resizable()
+                                    .frame(width: 200, height: 300)
+                                    .scaledToFill()
+                                    .clipped()
+                                    .padding(.top, 10)
+                                    .padding(.bottom, 20)
+                            }
                             Spacer()
                         }
                         

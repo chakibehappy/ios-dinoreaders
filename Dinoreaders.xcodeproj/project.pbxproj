@@ -52,10 +52,19 @@
 		8DA73BAE2AB88CB00098160A /* poppins_semi_bold_italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8DA73B8F2AB88CB00098160A /* poppins_semi_bold_italic.ttf */; };
 		8DA73BAF2AB88CB00098160A /* quicksand_dash.otf in Resources */ = {isa = PBXBuildFile; fileRef = 8DA73B902AB88CB00098160A /* quicksand_dash.otf */; };
 		8DA73BB02AB88CB00098160A /* poppins_extra_bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8DA73B912AB88CB00098160A /* poppins_extra_bold.ttf */; };
+		8DA84E962B1EFBFC00CE7989 /* LibraryResponseData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA84E952B1EFBFC00CE7989 /* LibraryResponseData.swift */; };
+		8DAA56952B1C847B0030934D /* CollectionData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAA56942B1C847B0030934D /* CollectionData.swift */; };
+		8DAA56972B1CFD4A0030934D /* SingleBookData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAA56962B1CFD4A0030934D /* SingleBookData.swift */; };
+		8DAA569A2B1D83C70030934D /* CanvasSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAA56992B1D83C70030934D /* CanvasSelectionView.swift */; };
+		8DAA569C2B1D92090030934D /* CanvasData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAA569B2B1D92090030934D /* CanvasData.swift */; };
+		8DAA569E2B1DADF10030934D /* CreateOwnStoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAA569D2B1DADF10030934D /* CreateOwnStoryView.swift */; };
 		8DB231C82AB82B2E0076F78A /* DinoreadersApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB231C72AB82B2E0076F78A /* DinoreadersApp.swift */; };
 		8DB231CA2AB82B2E0076F78A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB231C92AB82B2E0076F78A /* ContentView.swift */; };
 		8DB231CC2AB82B300076F78A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DB231CB2AB82B300076F78A /* Assets.xcassets */; };
 		8DB231CF2AB82B300076F78A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DB231CE2AB82B300076F78A /* Preview Assets.xcassets */; };
+		8DB48D982B214B31007CC6BA /* EditDinoBuddyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB48D972B214B31007CC6BA /* EditDinoBuddyView.swift */; };
+		8DB48D9A2B214B31007CC6BA /* DinoBuddyAvatarData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB48D992B214B31007CC6BA /* DinoBuddyAvatarData.swift */; };
+		8DB48D9D2B217BBE007CC6BA /* HexToColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB48D9C2B217BBE007CC6BA /* HexToColor.swift */; };
 		8DCC48FD2AB83D40002D9929 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DCC48FC2AB83D40002D9929 /* HomeView.swift */; };
 		8DCC49002AB845A7002D9929 /* HomeTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DCC48FF2AB845A7002D9929 /* HomeTabView.swift */; };
 		8DCC49022AB845D7002D9929 /* LibraryTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DCC49012AB845D7002D9929 /* LibraryTabView.swift */; };
@@ -109,11 +118,20 @@
 		8DA73B8F2AB88CB00098160A /* poppins_semi_bold_italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = poppins_semi_bold_italic.ttf; sourceTree = "<group>"; };
 		8DA73B902AB88CB00098160A /* quicksand_dash.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = quicksand_dash.otf; sourceTree = "<group>"; };
 		8DA73B912AB88CB00098160A /* poppins_extra_bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = poppins_extra_bold.ttf; sourceTree = "<group>"; };
+		8DA84E952B1EFBFC00CE7989 /* LibraryResponseData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryResponseData.swift; sourceTree = "<group>"; };
+		8DAA56942B1C847B0030934D /* CollectionData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionData.swift; sourceTree = "<group>"; };
+		8DAA56962B1CFD4A0030934D /* SingleBookData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleBookData.swift; sourceTree = "<group>"; };
+		8DAA56992B1D83C70030934D /* CanvasSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasSelectionView.swift; sourceTree = "<group>"; };
+		8DAA569B2B1D92090030934D /* CanvasData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasData.swift; sourceTree = "<group>"; };
+		8DAA569D2B1DADF10030934D /* CreateOwnStoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateOwnStoryView.swift; sourceTree = "<group>"; };
 		8DB231C42AB82B2E0076F78A /* Dinoreaders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dinoreaders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DB231C72AB82B2E0076F78A /* DinoreadersApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DinoreadersApp.swift; sourceTree = "<group>"; };
 		8DB231C92AB82B2E0076F78A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		8DB231CB2AB82B300076F78A /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8DB231CE2AB82B300076F78A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		8DB48D972B214B31007CC6BA /* EditDinoBuddyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDinoBuddyView.swift; sourceTree = "<group>"; };
+		8DB48D992B214B31007CC6BA /* DinoBuddyAvatarData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DinoBuddyAvatarData.swift; sourceTree = "<group>"; };
+		8DB48D9C2B217BBE007CC6BA /* HexToColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexToColor.swift; sourceTree = "<group>"; };
 		8DCC48FC2AB83D40002D9929 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		8DCC48FF2AB845A7002D9929 /* HomeTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabView.swift; sourceTree = "<group>"; };
 		8DCC49012AB845D7002D9929 /* LibraryTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryTabView.swift; sourceTree = "<group>"; };
@@ -173,6 +191,27 @@
 			path = Fonts;
 			sourceTree = "<group>";
 		};
+		8DAA56932B1C84390030934D /* DataModel */ = {
+			isa = PBXGroup;
+			children = (
+				8DAA56942B1C847B0030934D /* CollectionData.swift */,
+				8DAA56962B1CFD4A0030934D /* SingleBookData.swift */,
+				8DAA569B2B1D92090030934D /* CanvasData.swift */,
+				8DA84E952B1EFBFC00CE7989 /* LibraryResponseData.swift */,
+				8DB48D992B214B31007CC6BA /* DinoBuddyAvatarData.swift */,
+			);
+			path = DataModel;
+			sourceTree = "<group>";
+		};
+		8DAA56982B1D839C0030934D /* OwnStory */ = {
+			isa = PBXGroup;
+			children = (
+				8DAA56992B1D83C70030934D /* CanvasSelectionView.swift */,
+				8DAA569D2B1DADF10030934D /* CreateOwnStoryView.swift */,
+			);
+			path = OwnStory;
+			sourceTree = "<group>";
+		};
 		8DB231BB2AB82B2D0076F78A = {
 			isa = PBXGroup;
 			children = (
@@ -192,6 +231,10 @@
 		8DB231C62AB82B2E0076F78A /* Dinoreaders */ = {
 			isa = PBXGroup;
 			children = (
+				8DB48D9B2B217BA6007CC6BA /* GenericFunctions */,
+				8DB48D962B214AF0007CC6BA /* DinoBuddy */,
+				8DAA56982B1D839C0030934D /* OwnStory */,
+				8DAA56932B1C84390030934D /* DataModel */,
 				8DA73B542AB88C6A0098160A /* Fonts */,
 				8DCC490F2AB85B16002D9929 /* Info.plist */,
 				8DCC48FE2AB8453E002D9929 /* TabView */,
@@ -224,6 +267,22 @@
 				8DB231CE2AB82B300076F78A /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		8DB48D962B214AF0007CC6BA /* DinoBuddy */ = {
+			isa = PBXGroup;
+			children = (
+				8DB48D972B214B31007CC6BA /* EditDinoBuddyView.swift */,
+			);
+			path = DinoBuddy;
+			sourceTree = "<group>";
+		};
+		8DB48D9B2B217BA6007CC6BA /* GenericFunctions */ = {
+			isa = PBXGroup;
+			children = (
+				8DB48D9C2B217BBE007CC6BA /* HexToColor.swift */,
+			);
+			path = GenericFunctions;
 			sourceTree = "<group>";
 		};
 		8DCC48FE2AB8453E002D9929 /* TabView */ = {
@@ -344,10 +403,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DAA569C2B1D92090030934D /* CanvasData.swift in Sources */,
+				8DB48D982B214B31007CC6BA /* EditDinoBuddyView.swift in Sources */,
 				8DA4DB802AC05A6D00FF4911 /* StoryPageData.swift in Sources */,
 				8D4D67532ABC05E900B29D6F /* AudioController.swift in Sources */,
 				8DCC49022AB845D7002D9929 /* LibraryTabView.swift in Sources */,
 				8DCC48FD2AB83D40002D9929 /* HomeView.swift in Sources */,
+				8DA84E962B1EFBFC00CE7989 /* LibraryResponseData.swift in Sources */,
 				8D667EE42AC7D066004A5A5E /* TestView.swift in Sources */,
 				8D19BC052AF2227E009D070B /* PlacementTestLevelSelectView.swift in Sources */,
 				8D19BBFC2AF0D5DF009D070B /* ApplicationSettingView.swift in Sources */,
@@ -355,12 +417,18 @@
 				8D19BC002AF1D910009D070B /* ImagePicker.swift in Sources */,
 				8DCC49042AB845E7002D9929 /* CreateTabView.swift in Sources */,
 				8DCC49062AB845F8002D9929 /* SearchTabView.swift in Sources */,
+				8DB48D9D2B217BBE007CC6BA /* HexToColor.swift in Sources */,
+				8DAA56952B1C847B0030934D /* CollectionData.swift in Sources */,
+				8DAA56972B1CFD4A0030934D /* SingleBookData.swift in Sources */,
 				8D0526062AC1ACAF005BB2F7 /* ProfileView.swift in Sources */,
 				8DB231CA2AB82B2E0076F78A /* ContentView.swift in Sources */,
 				8D19BBFE2AF1765B009D070B /* CreateNewProfileView.swift in Sources */,
 				8D667EE22AC7C1C6004A5A5E /* TextToSpeechManager.swift in Sources */,
+				8DB48D9A2B214B31007CC6BA /* DinoBuddyAvatarData.swift in Sources */,
+				8DAA569A2B1D83C70030934D /* CanvasSelectionView.swift in Sources */,
 				8D4D67572ABC0A6B00B29D6F /* SingleBookView.swift in Sources */,
 				8DB231C82AB82B2E0076F78A /* DinoreadersApp.swift in Sources */,
+				8DAA569E2B1DADF10030934D /* CreateOwnStoryView.swift in Sources */,
 				8D4D67512ABBFD3300B29D6F /* StoryBookView.swift in Sources */,
 				8DCC49002AB845A7002D9929 /* HomeTabView.swift in Sources */,
 				8D19BC072AF2227E009D070B /* PlacementTestBookSelectView.swift in Sources */,

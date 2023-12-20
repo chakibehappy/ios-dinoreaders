@@ -70,7 +70,7 @@ class UserDefaultManager {
     @UserDefault("UserProfilePic", defaultValue: "")
     static var UserProfilePic: String
     
-    @UserDefault("UserAccessToken", defaultValue: "")	
+    @UserDefault("UserAccessToken", defaultValue: "")
     static var UserAccessToken: String
     
     @UserDefault("UserID", defaultValue: 0)
@@ -81,6 +81,9 @@ class UserDefaultManager {
 }
 
 class API{
+    
+    static var AWS_PATH = "https://dinoreadersbucket.s3.ap-southeast-1.amazonaws.com"
+    
     static var BASE_API = "http://dinoreaders.com/api/"
     static var GETPROFILEINFO_API = BASE_API + "profile/show_info/"
     static var DASHBOARD_API = BASE_API + "dashboard"
@@ -89,5 +92,13 @@ class API{
     static var PROFILESETTING_API = BASE_API + "parent-setting/show/"
     static var SAVE_PROFILE_API = BASE_API + "profile/store"
     
-    static var GETBOOKBYREADINGLEVEL_API = BASE_API + "publish/book/allByReadingLevel/";
+    static var GETBOOKBYREADINGLEVEL_API = BASE_API + "publish/book/allByReadingLevel/"
+    
+    static var GETFAVOURITEBOOK_API = BASE_API + "library"
+    static var TOOGLEFAVOURITE_API = BASE_API + "library/favourite"
+    
+    static var GETALLBOOK_API = BASE_API + "publish/book/all"
+    static var GETALLCOLLECTIONS_API = BASE_API + "collections/show-all"
+    
+    static var GETBOOKDETAIL_API = BASE_API + "book/single/"
 }

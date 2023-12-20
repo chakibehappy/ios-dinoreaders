@@ -176,8 +176,9 @@ struct ProfileView: View {
                     }
                     .frame(height: 185)
                 
-                    GradientButton(width:250, text: "Edit your Dino Buddy", btnCol: yellow, colors: yellowGradients, textSize: 18) {
-                        print("Button tapped")
+                    NavigationLink(destination: EditDinoBuddyView())
+                    {
+                        GradientViewButton(width:250, text: "Edit your Dino Buddy", btnCol: yellow, colors: yellowGradients, textSize: 18)
                     }
                     
                     
