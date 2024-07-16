@@ -175,12 +175,17 @@ struct ProfileView: View {
                 
                     }
                     .frame(height: 185)
-                
+                    
+                    
+                    NavigationLink(destination: EditDinoBuddyView())
+                    {
+                        GradientViewButton(width:250, text: "Dino Eggs", btnCol: yellow, colors: yellowGradients, textSize: 18)
+                    }
+                    
                     NavigationLink(destination: EditDinoBuddyView())
                     {
                         GradientViewButton(width:250, text: "Edit your Dino Buddy", btnCol: yellow, colors: yellowGradients, textSize: 18)
                     }
-                    
                     
                     Rectangle()
                         .fill(Color.white)
@@ -230,7 +235,6 @@ struct ProfileView: View {
                     GradientButton(width:250, text: "Logout", btnCol: orange, colors: orangeGradients, textSize: 18) {
                         logout()
                     }
-                    Spacer()
                 }
             }
             .background(bgColor)

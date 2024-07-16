@@ -195,6 +195,9 @@ struct HomeTabView: View {
                         Spacer()
                     }
                 }
+                .navigationBarBackButtonHidden(true)
+                .navigationBarHidden(true)
+                .toolbar(.visible, for: .tabBar)
                 .onAppear() {
                     getUserInfo()
                     fetchDataFromAPI()

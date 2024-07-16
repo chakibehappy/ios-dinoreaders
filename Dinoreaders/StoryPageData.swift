@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Line: Codable {
+struct Line: Codable, Hashable {
     let left: Double
     let top: Double
     let text: String
@@ -24,6 +24,9 @@ struct Page: Codable {
     let height: Double
     let fontSpace: Double
     let lines: [Line]
+    var isStoryPage: Bool?
+    var playAudio: Bool?
+    var fullText: String?
 }
 
 struct StoryPageData: Codable {

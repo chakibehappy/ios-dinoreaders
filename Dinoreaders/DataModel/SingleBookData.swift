@@ -26,7 +26,7 @@ struct SingleBook: Codable {
     let reading_level: String
     let read_url: String
     let read_to_me: Bool
-    let level: [String]
+    //let level: [String]
     let categories: [Category]?
     let lang: String
     let published: Int

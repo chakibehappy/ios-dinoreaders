@@ -30,7 +30,7 @@ struct SingleBookView: View {
             VStack(spacing: 0){
                 ZStack{
                     HStack{
-                        Button( action: { self.presentationMode.wrappedValue.dismiss()})
+                        NavigationLink(destination: HomeTabView())
                         {
                             Image("back_arrow_new")
                                 .resizable()
@@ -88,6 +88,7 @@ struct SingleBookView: View {
                                     NavigationLink(destination: StoryBookView(
                                         storyPageData: storyPageData,
                                         bookDataPath: API.AWS_PATH + "/public/document/" + book.uid + "/",
+                                        bookId : book_id,
                                         activePage: 0, ttsManager: TextToSpeechManager()
                                     )){
                                         Image("btn_begin")
@@ -169,28 +170,35 @@ struct SingleBookView: View {
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarHidden(true)
-        .toolbar(showTabBar ? .visible: .hidden, for: .tabBar)
+        .toolbar(.hidden, for: .tabBar)
         .onAppear(){
-            showTabBar = false
+            forcePortraitOrientation()
             getBookDetail()
         }
-        .onDisappear(){
-            showTabBar = true
-        }
+        .onDisappear(){}
     }
     
     func getBookDetail(){
+        print(API.GETBOOKDETAIL_API + String(book_id))
         guard let url = URL(string: API.GETBOOKDETAIL_API + String(book_id)) else {
             return
         }
-            
+        
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("Bearer \(UserDefaultManager.UserAccessToken)", forHTTPHeaderField: "Authorization")
         request.setValue("application/json", forHTTPHeaderField: "Accept")
                 
         URLSession.shared.dataTask(with: request) { data, response, error in
+            if let response = response as? HTTPURLResponse {
+                        print("Response status code: \(response.statusCode)")
+                        print("Response headers: \(response.allHeaderFields)")
+                    }
+            
             if let data = data {
+                if let jsonString = String(data: data, encoding: .utf8) {
+                                print("Response JSON string: \(jsonString)")
+                            }
                 do {
                     let decoder = JSONDecoder()
                     let result = try decoder.decode(SingleBookData.self, from: data)
@@ -234,12 +242,43 @@ struct SingleBookView: View {
             
             if let book = singleBook {
                 let jsonURLString = API.AWS_PATH + "/public/document/" + book.uid + "/book_data.json"
-
                 if let url = URL(string: jsonURLString) {
                     fetchStoryPageData(from: url) { result in
                         switch result {
                         case .success(let bookData):
-                            storyPageData = bookData
+                            // Filtering pages based on show_pages and play_audio
+                            let filteredPages = book.pages.filter { $0.show_pages == 1 }
+                            let pageNumbers = filteredPages.map { $0.page_number }
+                            let filteredStoryPages = bookData.pages.filter { pageNumbers.contains($0.pageNumber) }.map { page in
+                                let isStoryPage = true // or any logic to determine its value
+                                let playAudio = filteredPages.first(where: { $0.page_number == page.pageNumber })?.play_audio == 1
+
+                                // Constructing fullText based on lines
+                                var fullText = ""
+                                if !page.lines.isEmpty {
+                                    for (index, line) in page.lines.enumerated() {
+                                        fullText += line.text
+                                        if index < page.lines.count - 1 {
+                                            fullText += " "
+                                        }
+                                    }
+                                    fullText = fullText.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: "\\s+", with: " ", options: .regularExpression)
+                                }
+                                print(fullText)
+
+                                return Page(
+                                    pageNumber: page.pageNumber,
+                                    imgUrl: page.imgUrl,
+                                    width: page.width,
+                                    height: page.height,
+                                    fontSpace: page.fontSpace,
+                                    lines: page.lines,
+                                    isStoryPage: isStoryPage,
+                                    playAudio: playAudio,
+                                    fullText: fullText
+                                )
+                            }
+                            storyPageData = StoryPageData(creator: bookData.creator, pages: filteredStoryPages)
                         case .failure(let error):
                             print("Error: \(error)")
                         }
@@ -248,7 +287,7 @@ struct SingleBookView: View {
                     print("Invalid URL")
                 }
             }
-            
+
             
             
         }.resume()

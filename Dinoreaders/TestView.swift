@@ -153,31 +153,7 @@ struct TestView : View {
                 
                 GeometryReader { geometry in
                     ZStack {
-                        if let storyPageData = storyPageData, storyPageData.pages[activePage].lines.count > 0{
-                            ForEach(storyPageData.pages[activePage].lines.indices, id: \.self) { index in
-                                let line = storyPageData.pages[activePage].lines[index]
-                                let left =  (line.left *  geometry.size.width/storyPageData.pages[activePage].width)
-                                let top = CGFloat(line.top  *  geometry.size.height/storyPageData.pages[activePage].height) - geometry.size.height/2
-                                let topMargin = top * 2
-                                let finalTopMargin = topMargin - line.fontSize/2 <= -(geometry.size.height/2) ? topMargin + line.lineHeight/4 : topMargin
-                                
-                                let text : NSAttributedString = NSAttributedString(string: line.text)
-                                
-                                // check if its one of text is out of area of bottom, each text need to be add some space of top
-                                if let speakerLabel = ttsManager.label{
-                                    if line.text == speakerLabel.string{
-                                        LabelRepresented(text: ttsManager.label, customFontSize: CGFloat(line.fontSize * geometry.size.height/storyPageData.pages[activePage].height), padding: UIEdgeInsets(top: finalTopMargin, left: left, bottom: 0, right: 0))
-                                    }
-                                    else{
-                                        LabelRepresented(text: text, customFontSize: CGFloat(line.fontSize * geometry.size.height/storyPageData.pages[activePage].height), padding: UIEdgeInsets(top: finalTopMargin, left: left, bottom: 0, right: 0))
-                                    }
-                                }
-                                else{
-                                        LabelRepresented(text: text, customFontSize: CGFloat(line.fontSize * geometry.size.height/storyPageData.pages[activePage].height), padding: UIEdgeInsets(top: finalTopMargin, left: left, bottom: 0, right: 0))
-                                }
-                                
-                            }
-                        }
+                        
                     }
                     .frame(width: geometry.size.width, height: geometry.size.height, alignment: .leading)
                 }
@@ -270,7 +246,7 @@ struct TestView : View {
                         storyPageData = bookData
                         if let storyPageData = storyPageData{
                             if storyPageData.pages[activePage].lines.count > 0{
-                                ttsManager.speak(storyPageData.pages[activePage].lines)
+                                //ttsManager.speak(storyPageData.pages[activePage].lines)
                             }
                         }
                     case .failure(let error):

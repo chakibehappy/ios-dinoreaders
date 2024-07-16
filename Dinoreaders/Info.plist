@@ -4,6 +4,7 @@
 <dict>
 	<key>UIAppFonts</key>
 	<array>
+		<string>poppins_semi_bold.ttf</string>
 		<string>ruddy_regular.ttf</string>
 		<string>ruddy_bold.ttf</string>
 		<string>ruddy_black.ttf</string>
