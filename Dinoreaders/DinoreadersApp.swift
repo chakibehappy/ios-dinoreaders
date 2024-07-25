@@ -13,7 +13,7 @@ struct DinoreadersApp: App {
         WindowGroup {
             ContentView()
                 .environmentObject(UserSettings())
-//            TestView(activePage: 1, ttsManager: TextToSpeechManager())
+                .environmentObject(ReadingTimeManager())
         }
     }
 }

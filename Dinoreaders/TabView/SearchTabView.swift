@@ -80,7 +80,7 @@ struct SearchTabView: View {
                                 ZStack{
                                     HStack{
                                         VStack(alignment: .leading){
-                                            StrokeText(text: "Children 1", width: 1.25, color: .black)
+                                            StrokeText(text: UserDefaultManager.ProfileName, width: 1.25, color: .black)
                                                 .foregroundColor(.white)
                                                 .font(.custom("Ruddy-Black", size: 13))
                                             
@@ -253,12 +253,6 @@ struct SearchTabView: View {
                             }
                             .padding(.horizontal, 10)
                             .background(bookBodyCol)
-                            
-                            VStack(){
-                                Spacer()
-                            }
-                            .frame(width:UIScreen.main.bounds.width, height: max(0, UIScreen.main.bounds.height - (CGFloat(ceil(Double(filteredItems.count / 3)) * 240))))
-                            .background(bookBodyCol)
                         }
                         else
                         {
@@ -274,21 +268,26 @@ struct SearchTabView: View {
                             }
                             .padding(.horizontal, 10)
                             .background(collectionBodyCol)
-                            
-                            VStack(){
-                                Spacer()
-                            }
-                            .frame(width:UIScreen.main.bounds.width, height: max(0, UIScreen.main.bounds.height - (CGFloat(ceil(Double(filteredCollections.count / 3)) * 240))))
-                            .background(collectionBodyCol)
                         }
-                        
                     }
-                    
                 }
                 .background(
-                    Image("home_gradient_bg")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
+                    ZStack{
+                        Image("home_gradient_bg")
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                        if isBookTab {
+                            bookBodyCol
+                                .edgesIgnoringSafeArea(.all)
+                                .frame(maxHeight: .infinity, alignment: .top)
+                                .padding(.top, 250)
+                        } else {
+                            collectionBodyCol
+                                .edgesIgnoringSafeArea(.all)
+                                .frame(maxHeight: .infinity, alignment: .top)
+                                .padding(.top, 250)
+                        }
+                    }
                 )
                 .onAppear(){
                     fetchBookDataFromAPI()
@@ -397,7 +396,7 @@ struct SearchTabView: View {
                         self.collections = result.data
                     }
                 } catch {
-                    print("Error decoding JSON: \(error)")
+                    print("Error decoding JSON collection : \(error)")
                 }
 
             }

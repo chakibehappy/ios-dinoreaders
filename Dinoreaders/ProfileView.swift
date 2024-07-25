@@ -84,7 +84,7 @@ struct ProfileView: View {
                         Spacer()
                         VStack{
                             Spacer()
-                            StrokeText(text: "Profile", width: 1.25, color: .black)
+                            StrokeText(text: "Profile", width: 2, color: .black)
                                 .foregroundColor(.white)
                                 .font(.custom("Ruddy-Black", size: 34))
                             Spacer()
@@ -92,10 +92,10 @@ struct ProfileView: View {
                         Spacer()
                     }
                 }
-                .frame(height: 85)
+                .frame(height: 60)
                 .background(bgColor)
                 
-                ScrollView(.vertical){
+                ScrollView(.vertical, showsIndicators: false){
                     GeometryReader { geometry in
                         HStack{
                             HStack{
@@ -108,20 +108,28 @@ struct ProfileView: View {
                                             image
                                                 .resizable()
                                                 .scaledToFit()
+                                                .aspectRatio(contentMode: .fill)
+                                                .frame(width: 110, height: 110)
+                                                .clipShape(Circle())
+                                                .background(.yellow)
+                                                .clipped()
                                         case .failure(let error):
                                             Text(error.localizedDescription)
                                             Image(systemName: "person.fill")
                                                 .resizable()
                                                 .scaledToFit()
-                                                .frame(width: 110, height: 110)
+                                                .frame(width: 120, height: 120)
                                                 .clipShape(Circle())
-                                                .background(.white)
+                                                .background(.yellow)
+                                                .clipped()
                                         @unknown default:
                                             Text("Unknown state")
                                         }
                                     }
                                     .frame(width: 110, height: 110)
+                                    .background(.yellow)
                                     .clipShape(Circle())
+
                                     VStack{
                                         Spacer()
                                         StrokeText(text: "Lv" + String(settings.ReadingLevel), width: 1.25, color: .black)
@@ -138,7 +146,7 @@ struct ProfileView: View {
                                         .scaledToFill()
                                         .clipped()
                                     HStack{
-                                        StrokeText(text: "Children1", width: 1.25, color: .black)
+                                        StrokeText(text: UserDefaultManager.ProfileName, width: 1.25, color: .black)
                                             .foregroundColor(.white)
                                             .font(.custom("Ruddy-Black", size: 24))
                                         Spacer()
@@ -168,16 +176,17 @@ struct ProfileView: View {
                             }
                             .padding(.all, 10)
                             .background(profileBoxColor)
-                            .cornerRadius(10)
+                            .cornerRadius(15)
                         }
                         .padding(.horizontal, 10)
-                        .frame(width: geometry.size.width, height: 165)
+                        .frame(width: geometry.size.width, height: 150)
                 
                     }
-                    .frame(height: 185)
+                    .frame(height: 165)
+                    .padding(.top, 25)
                     
                     
-                    NavigationLink(destination: EditDinoBuddyView())
+                    NavigationLink(destination: DinoEggsCollectionView())
                     {
                         GradientViewButton(width:250, text: "Dino Eggs", btnCol: yellow, colors: yellowGradients, textSize: 18)
                     }
@@ -207,12 +216,26 @@ struct ProfileView: View {
                     }
                     .padding(.horizontal, 15)
                     
-                    ScrollView {
-                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
-                            
+//                    ScrollView {
+//                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
+//
+//                            if let responseData = responseData {
+//                                ForEach(responseData.data, id: \.id){profile in
+//                                    ProfileImageButton(image: profile.img_url, action: {
+//                                        // Handle button action here
+//                                    })
+//                                    .buttonStyle(PlainButtonStyle())
+//                                }
+//                            }
+//                        }
+//                        .padding()
+//                    }
+//
+                    ScrollView(.horizontal, showsIndicators: false) { // Horizontal scroll view
+                        HStack(spacing: 25) { // Arrange items horizontally
                             if let responseData = responseData {
-                                ForEach(responseData.data, id: \.id){profile in
-                                    ProfileImageButton(image: profile.img_url, action: {
+                                ForEach(responseData.data, id: \.id) { profile in
+                                    ProfileImageButton(image: profile.img_url,size:80, action: {
                                         // Handle button action here
                                     })
                                     .buttonStyle(PlainButtonStyle())
@@ -220,8 +243,10 @@ struct ProfileView: View {
                             }
                         }
                         .padding()
+                        .padding(.horizontal, 25)
+                        .padding(.bottom, 15)
                     }
-                    
+            
                     NavigationLink(destination: CreateNewProfileView())
                     {
                         GradientViewButton(width:250, text: "Create new Profile", btnCol: blue, colors: blueGradients, textSize: 18)
@@ -403,6 +428,7 @@ struct GradientViewButton: View {
 
 struct ProfileImageButton: View {
     var image : String
+    var size : CGFloat
     var action: () -> Void
 
     var body: some View {
@@ -411,22 +437,32 @@ struct ProfileImageButton: View {
                 switch phase {
                 case .empty:
                     ProgressView()
+                        .frame(width: size, height: size)
+                        .clipShape(Circle())
+                        .background(.white)
+                        .clipped()
                 case .success(let image):
                     image
                         .resizable()
                         .scaledToFit()
+                        .aspectRatio(contentMode: .fill)
+                        .frame(width: size, height: size)
+                        .clipShape(Circle())
+                        .background(.white)
+                        .clipped()
                 case .failure(_):
                     Image(systemName: "person.fill")
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 80, height: 80)
+                        .frame(width: size, height: size)
                         .clipShape(Circle())
                         .background(.white)
+                        .clipped()
                 @unknown default:
                     Text("Unknown state")
                 }
             }
-            .frame(width: 80, height: 80)
+            .frame(width: size, height: size)
             .background(.white)
             .clipShape(Circle())
                 

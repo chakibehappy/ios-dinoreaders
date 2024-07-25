@@ -9,6 +9,8 @@ struct EditDinoBuddyView: View {
     let activeHeaderColor  = "#58cefe"
     let unactiveHeaderColor  = "#CCCCCC"
     
+    @EnvironmentObject var settings : UserSettings
+    
     let canvasData: [CanvasData] = [
         CanvasData(id: 1, name: "Design 1", thumbnail: "canvas_1", cover: "full_canvas_1"),
         CanvasData(id: 2, name: "Design 2", thumbnail: "canvas_2", cover: "full_canvas_2"),
@@ -25,7 +27,7 @@ struct EditDinoBuddyView: View {
     
     @State var selectedtab = 0
     
-    @State var avatars : [AvatarIconData] = [
+    let avatars : [AvatarIconData] = [
         AvatarIconData(id: 1, name: "T-Rex", local_path: "", asset_name: "t_rex", img_url: ""),
         AvatarIconData(id: 2, name: "Brachiosaurus", local_path: "", asset_name: "brachiosaurus", img_url: ""),
         AvatarIconData(id: 3, name: "Hadrosaurus", local_path: "", asset_name: "hadrosaurus", img_url: ""),
@@ -39,12 +41,12 @@ struct EditDinoBuddyView: View {
         AvatarIconData(id: 11, name: "Dilophosaurus", local_path: "", asset_name: "dilophosaurus", img_url: ""),
         AvatarIconData(id: 12, name: "Triceratops", local_path: "", asset_name: "triceratops", img_url: "")
     ]
-    @State var accessorys : [AvatarAccessoryData] = [
+    let accessorys : [AvatarAccessoryData] = [
         AvatarAccessoryData(id: 1, local_path: "", asset_name: "avatar_frame_1", img_url: ""),
         AvatarAccessoryData(id: 2, local_path: "", asset_name: "avatar_frame_2", img_url: ""),
         AvatarAccessoryData(id: 3, local_path: "", asset_name: "avatar_frame_3", img_url: "")
     ]
-    @State var backgrounds : [AvatarBackgroundData] = [
+    let backgrounds : [AvatarBackgroundData] = [
         AvatarBackgroundData(id: 1, color: "#FFB441", img_url: ""),
         AvatarBackgroundData(id: 2, color: "#FEF200", img_url: ""),
         AvatarBackgroundData(id: 3, color: "#0054A5", img_url: ""),
@@ -58,7 +60,6 @@ struct EditDinoBuddyView: View {
     @State var selectedBackground : AvatarBackgroundData = AvatarBackgroundData(id: 1, color: "#FFB441", img_url: "")
     
     var body: some View {
-        
         NavigationStack{
             VStack(alignment: .leading, spacing: 0){
                 HStack{
@@ -73,14 +74,14 @@ struct EditDinoBuddyView: View {
                             .padding(.vertical, 5)
                     }
                     Spacer()
-                    StrokeText(text: "Dino Buddy", width: 1.25, color: .black)
+                    StrokeText(text: "Dino Buddy", width: 2, color: .black)
                         .font(.custom("Ruddy-Bold", size: 38))
                         .foregroundColor(.white)
                         .padding(.leading, -55)
                     Spacer()
                 }
                 .padding(.horizontal, 10)
-                .padding(.top, 15)
+                .padding(.top, 5)
                 
                 HStack{
                     Spacer()
@@ -94,7 +95,7 @@ struct EditDinoBuddyView: View {
                                     .frame(width: UIScreen.main.bounds.width/2 - 50, height:UIScreen.main.bounds.width/2 - 50)
                             }
                             else{
-                                Image(accessorys[0].asset_name)
+                                Image(settings.AvatarAccessory.asset_name)
                                     .resizable()
                                     .frame(width: UIScreen.main.bounds.width/2 - 50, height:UIScreen.main.bounds.width/2 - 50)
                             }
@@ -107,7 +108,7 @@ struct EditDinoBuddyView: View {
                                     .padding(.all, 10)
                             }
                             else{
-                                Image(avatars[0].asset_name)
+                                Image(settings.AvatarIcon.asset_name)
                                     .resizable()
                                     .frame(width: UIScreen.main.bounds.width/2, height:UIScreen.main.bounds.width/2)
                                     .padding(.all, 10)
@@ -120,6 +121,16 @@ struct EditDinoBuddyView: View {
                         .padding(.top,10)
                         
                         GradientViewButton(width:130, text: "Save!", btnCol: yellow, colors: yellowGradients, textSize: 24)
+                            .onTapGesture(perform: {
+                                if let avatar = selectedAvatar {
+                                    settings.AvatarIcon = avatar
+                                }
+                                if let acc = selectedAccessory {
+                                    settings.AvatarAccessory = acc
+                                }
+                                settings.AvatarBackground = selectedBackground
+                                self.presentationMode.wrappedValue.dismiss()
+                            })
                     }
                     Spacer()
                 }
@@ -190,16 +201,15 @@ struct EditDinoBuddyView: View {
                                     }){
                                         VStack()
                                         {
-                                            
-                                                VStack(){
-                                                    Image(acc.asset_name)
-                                                        .resizable()
-                                                        .frame(width: 75, height: 75)
-                                                        
-                                                }
-                                                .frame(width: 100, height: 100)
-                                                .background(selectedAccessory?.id == acc.id ? .yellow : tabBodyColor)
-                                                .cornerRadius(50)
+                                            VStack(){
+                                                Image(acc.asset_name)
+                                                    .resizable()
+                                                    .frame(width: 75, height: 75)
+                                                    
+                                            }
+                                            .frame(width: 100, height: 100)
+                                            .background(selectedAccessory?.id == acc.id ? .yellow : tabBodyColor)
+                                            .cornerRadius(50)
                                                 
                                         }
                                         .frame(width: UIScreen.main.bounds.width/3, height: UIScreen.main.bounds.width/3)
@@ -245,13 +255,10 @@ struct EditDinoBuddyView: View {
         }
         .navigationBarBackButtonHidden(true)
         .navigationBarHidden(true)
-        .toolbar(showTabBar ? .visible: .hidden, for: .tabBar)
+        .toolbar(.hidden, for: .tabBar)
         .background(screenBg)
         .onAppear(){
-            showTabBar = false
-        }
-        .onDisappear(){
-            showTabBar = true
+            selectedBackground = settings.AvatarBackground
         }
     }
 }

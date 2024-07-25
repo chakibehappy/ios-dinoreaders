@@ -13,7 +13,6 @@
 		8D19BC002AF1D910009D070B /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D19BBFF2AF1D90F009D070B /* ImagePicker.swift */; };
 		8D19BC032AF1EC5A009D070B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 8D19BC022AF1EC5A009D070B /* Alamofire */; };
 		8D19BC052AF2227E009D070B /* PlacementTestLevelSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D19BC042AF2227E009D070B /* PlacementTestLevelSelectView.swift */; };
-		8D19BC072AF2227E009D070B /* PlacementTestBookSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D19BC062AF2227E009D070B /* PlacementTestBookSelectView.swift */; };
 		8D4D67512ABBFD3300B29D6F /* StoryBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4D67502ABBFD3300B29D6F /* StoryBookView.swift */; };
 		8D4D67532ABC05E900B29D6F /* AudioController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4D67522ABC05E900B29D6F /* AudioController.swift */; };
 		8D4D67572ABC0A6B00B29D6F /* SingleBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4D67562ABC0A6B00B29D6F /* SingleBookView.swift */; };
@@ -64,6 +63,23 @@
 		8DAA569A2B1D83C70030934D /* CanvasSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAA56992B1D83C70030934D /* CanvasSelectionView.swift */; };
 		8DAA569C2B1D92090030934D /* CanvasData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAA569B2B1D92090030934D /* CanvasData.swift */; };
 		8DAA569E2B1DADF10030934D /* CreateOwnStoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAA569D2B1DADF10030934D /* CreateOwnStoryView.swift */; };
+		8DAB13392C48139000FEB7DB /* success.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8DAB13382C48139000FEB7DB /* success.wav */; };
+		8DAB133F2C4813A300FEB7DB /* flip_page_3.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8DAB133A2C4813A200FEB7DB /* flip_page_3.wav */; };
+		8DAB13402C4813A300FEB7DB /* flip_page_1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8DAB133B2C4813A200FEB7DB /* flip_page_1.wav */; };
+		8DAB13412C4813A300FEB7DB /* flip_page_5.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8DAB133C2C4813A300FEB7DB /* flip_page_5.wav */; };
+		8DAB13422C4813A300FEB7DB /* flip_page_2.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8DAB133D2C4813A300FEB7DB /* flip_page_2.wav */; };
+		8DAB13432C4813A300FEB7DB /* flip_page_4.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8DAB133E2C4813A300FEB7DB /* flip_page_4.wav */; };
+		8DAD91702C4ED68A00D6E2CF /* PlacementTestReading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD916F2C4ED68A00D6E2CF /* PlacementTestReading.swift */; };
+		8DAD91722C4ED86500D6E2CF /* PlacementTestResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAD91712C4ED86500D6E2CF /* PlacementTestResultView.swift */; };
+		8DB001CC2C4E1ED600C7E3D8 /* DinoEggsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB001CB2C4E1ED600C7E3D8 /* DinoEggsCollectionView.swift */; };
+		8DB001CE2C4E238D00C7E3D8 /* DinoEggData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB001CD2C4E238D00C7E3D8 /* DinoEggData.swift */; };
+		8DB001D02C4E2F6F00C7E3D8 /* DinoEggsInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB001CF2C4E2F6F00C7E3D8 /* DinoEggsInfoView.swift */; };
+		8DB001D32C4E84CC00C7E3D8 /* BookGradeSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB001D22C4E84CC00C7E3D8 /* BookGradeSelectionView.swift */; };
+		8DB001D52C4E87A600C7E3D8 /* GradeBookData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB001D42C4E87A600C7E3D8 /* GradeBookData.swift */; };
+		8DB036DE2C48DF97004B78F4 /* QuizView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB036DD2C48DF97004B78F4 /* QuizView.swift */; };
+		8DB036E02C496262004B78F4 /* QuizData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB036DF2C496262004B78F4 /* QuizData.swift */; };
+		8DB196832C4D7B0300F9D881 /* WordManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB196822C4D7B0300F9D881 /* WordManager.swift */; };
+		8DB196862C4D7C1A00F9D881 /* english_word_db.txt in Resources */ = {isa = PBXBuildFile; fileRef = 8DB196852C4D7C1A00F9D881 /* english_word_db.txt */; };
 		8DB231C82AB82B2E0076F78A /* DinoreadersApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB231C72AB82B2E0076F78A /* DinoreadersApp.swift */; };
 		8DB231CA2AB82B2E0076F78A /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB231C92AB82B2E0076F78A /* ContentView.swift */; };
 		8DB231CC2AB82B300076F78A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8DB231CB2AB82B300076F78A /* Assets.xcassets */; };
@@ -71,6 +87,9 @@
 		8DB48D982B214B31007CC6BA /* EditDinoBuddyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB48D972B214B31007CC6BA /* EditDinoBuddyView.swift */; };
 		8DB48D9A2B214B31007CC6BA /* DinoBuddyAvatarData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB48D992B214B31007CC6BA /* DinoBuddyAvatarData.swift */; };
 		8DB48D9D2B217BBE007CC6BA /* HexToColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB48D9C2B217BBE007CC6BA /* HexToColor.swift */; };
+		8DBD4B2C2C5023F300AC2A24 /* ReadingProfileData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBD4B2B2C5023F300AC2A24 /* ReadingProfileData.swift */; };
+		8DBD4B2E2C50FB7800AC2A24 /* ReadingTimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBD4B2D2C50FB7800AC2A24 /* ReadingTimeManager.swift */; };
+		8DBD4B302C5174B000AC2A24 /* DinoEggObtainData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBD4B2F2C5174B000AC2A24 /* DinoEggObtainData.swift */; };
 		8DCC48FD2AB83D40002D9929 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DCC48FC2AB83D40002D9929 /* HomeView.swift */; };
 		8DCC49002AB845A7002D9929 /* HomeTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DCC48FF2AB845A7002D9929 /* HomeTabView.swift */; };
 		8DCC49022AB845D7002D9929 /* LibraryTabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DCC49012AB845D7002D9929 /* LibraryTabView.swift */; };
@@ -85,7 +104,6 @@
 		8D19BBFD2AF1765B009D070B /* CreateNewProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewProfileView.swift; sourceTree = "<group>"; };
 		8D19BBFF2AF1D90F009D070B /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		8D19BC042AF2227E009D070B /* PlacementTestLevelSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacementTestLevelSelectView.swift; sourceTree = "<group>"; };
-		8D19BC062AF2227E009D070B /* PlacementTestBookSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacementTestBookSelectView.swift; sourceTree = "<group>"; };
 		8D4D67502ABBFD3300B29D6F /* StoryBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryBookView.swift; sourceTree = "<group>"; };
 		8D4D67522ABC05E900B29D6F /* AudioController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioController.swift; sourceTree = "<group>"; };
 		8D4D67562ABC0A6B00B29D6F /* SingleBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleBookView.swift; sourceTree = "<group>"; };
@@ -134,6 +152,23 @@
 		8DAA56992B1D83C70030934D /* CanvasSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasSelectionView.swift; sourceTree = "<group>"; };
 		8DAA569B2B1D92090030934D /* CanvasData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasData.swift; sourceTree = "<group>"; };
 		8DAA569D2B1DADF10030934D /* CreateOwnStoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateOwnStoryView.swift; sourceTree = "<group>"; };
+		8DAB13382C48139000FEB7DB /* success.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = success.wav; sourceTree = "<group>"; };
+		8DAB133A2C4813A200FEB7DB /* flip_page_3.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = flip_page_3.wav; sourceTree = "<group>"; };
+		8DAB133B2C4813A200FEB7DB /* flip_page_1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = flip_page_1.wav; sourceTree = "<group>"; };
+		8DAB133C2C4813A300FEB7DB /* flip_page_5.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = flip_page_5.wav; sourceTree = "<group>"; };
+		8DAB133D2C4813A300FEB7DB /* flip_page_2.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = flip_page_2.wav; sourceTree = "<group>"; };
+		8DAB133E2C4813A300FEB7DB /* flip_page_4.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = flip_page_4.wav; sourceTree = "<group>"; };
+		8DAD916F2C4ED68A00D6E2CF /* PlacementTestReading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacementTestReading.swift; sourceTree = "<group>"; };
+		8DAD91712C4ED86500D6E2CF /* PlacementTestResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacementTestResultView.swift; sourceTree = "<group>"; };
+		8DB001CB2C4E1ED600C7E3D8 /* DinoEggsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DinoEggsCollectionView.swift; sourceTree = "<group>"; };
+		8DB001CD2C4E238D00C7E3D8 /* DinoEggData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DinoEggData.swift; sourceTree = "<group>"; };
+		8DB001CF2C4E2F6F00C7E3D8 /* DinoEggsInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DinoEggsInfoView.swift; sourceTree = "<group>"; };
+		8DB001D22C4E84CC00C7E3D8 /* BookGradeSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookGradeSelectionView.swift; sourceTree = "<group>"; };
+		8DB001D42C4E87A600C7E3D8 /* GradeBookData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeBookData.swift; sourceTree = "<group>"; };
+		8DB036DD2C48DF97004B78F4 /* QuizView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizView.swift; sourceTree = "<group>"; };
+		8DB036DF2C496262004B78F4 /* QuizData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizData.swift; sourceTree = "<group>"; };
+		8DB196822C4D7B0300F9D881 /* WordManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordManager.swift; sourceTree = "<group>"; };
+		8DB196852C4D7C1A00F9D881 /* english_word_db.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = english_word_db.txt; sourceTree = "<group>"; };
 		8DB231C42AB82B2E0076F78A /* Dinoreaders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Dinoreaders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DB231C72AB82B2E0076F78A /* DinoreadersApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DinoreadersApp.swift; sourceTree = "<group>"; };
 		8DB231C92AB82B2E0076F78A /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -142,6 +177,9 @@
 		8DB48D972B214B31007CC6BA /* EditDinoBuddyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditDinoBuddyView.swift; sourceTree = "<group>"; };
 		8DB48D992B214B31007CC6BA /* DinoBuddyAvatarData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DinoBuddyAvatarData.swift; sourceTree = "<group>"; };
 		8DB48D9C2B217BBE007CC6BA /* HexToColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HexToColor.swift; sourceTree = "<group>"; };
+		8DBD4B2B2C5023F300AC2A24 /* ReadingProfileData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingProfileData.swift; sourceTree = "<group>"; };
+		8DBD4B2D2C50FB7800AC2A24 /* ReadingTimeManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadingTimeManager.swift; sourceTree = "<group>"; };
+		8DBD4B2F2C5174B000AC2A24 /* DinoEggObtainData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DinoEggObtainData.swift; sourceTree = "<group>"; };
 		8DCC48FC2AB83D40002D9929 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		8DCC48FF2AB845A7002D9929 /* HomeTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabView.swift; sourceTree = "<group>"; };
 		8DCC49012AB845D7002D9929 /* LibraryTabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryTabView.swift; sourceTree = "<group>"; };
@@ -168,6 +206,12 @@
 		8D76E0AA2C45E50500821B7D /* AudioFiles */ = {
 			isa = PBXGroup;
 			children = (
+				8DAB133B2C4813A200FEB7DB /* flip_page_1.wav */,
+				8DAB133D2C4813A300FEB7DB /* flip_page_2.wav */,
+				8DAB133A2C4813A200FEB7DB /* flip_page_3.wav */,
+				8DAB133E2C4813A300FEB7DB /* flip_page_4.wav */,
+				8DAB133C2C4813A300FEB7DB /* flip_page_5.wav */,
+				8DAB13382C48139000FEB7DB /* success.wav */,
 			);
 			path = AudioFiles;
 			sourceTree = "<group>";
@@ -219,6 +263,11 @@
 				8DA84E952B1EFBFC00CE7989 /* LibraryResponseData.swift */,
 				8DB48D992B214B31007CC6BA /* DinoBuddyAvatarData.swift */,
 				8D76E0A12C45D6F500821B7D /* AudioViewModel.swift */,
+				8DB036DF2C496262004B78F4 /* QuizData.swift */,
+				8DB001CD2C4E238D00C7E3D8 /* DinoEggData.swift */,
+				8DB001D42C4E87A600C7E3D8 /* GradeBookData.swift */,
+				8DBD4B2B2C5023F300AC2A24 /* ReadingProfileData.swift */,
+				8DBD4B2F2C5174B000AC2A24 /* DinoEggObtainData.swift */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -230,6 +279,43 @@
 				8DAA569D2B1DADF10030934D /* CreateOwnStoryView.swift */,
 			);
 			path = OwnStory;
+			sourceTree = "<group>";
+		};
+		8DB001D12C4E849E00C7E3D8 /* PlacementTest */ = {
+			isa = PBXGroup;
+			children = (
+				8D19BC042AF2227E009D070B /* PlacementTestLevelSelectView.swift */,
+				8DB001D22C4E84CC00C7E3D8 /* BookGradeSelectionView.swift */,
+				8DAD916F2C4ED68A00D6E2CF /* PlacementTestReading.swift */,
+				8DAD91712C4ED86500D6E2CF /* PlacementTestResultView.swift */,
+			);
+			path = PlacementTest;
+			sourceTree = "<group>";
+		};
+		8DB196812C4D7AE400F9D881 /* ConstantClass */ = {
+			isa = PBXGroup;
+			children = (
+				8DB196822C4D7B0300F9D881 /* WordManager.swift */,
+				8DBD4B2D2C50FB7800AC2A24 /* ReadingTimeManager.swift */,
+			);
+			path = ConstantClass;
+			sourceTree = "<group>";
+		};
+		8DB196842C4D7B8E00F9D881 /* Files */ = {
+			isa = PBXGroup;
+			children = (
+				8DB196852C4D7C1A00F9D881 /* english_word_db.txt */,
+			);
+			path = Files;
+			sourceTree = "<group>";
+		};
+		8DB196872C4DA5F800F9D881 /* DinoEggs */ = {
+			isa = PBXGroup;
+			children = (
+				8DB001CB2C4E1ED600C7E3D8 /* DinoEggsCollectionView.swift */,
+				8DB001CF2C4E2F6F00C7E3D8 /* DinoEggsInfoView.swift */,
+			);
+			path = DinoEggs;
 			sourceTree = "<group>";
 		};
 		8DB231BB2AB82B2D0076F78A = {
@@ -251,6 +337,10 @@
 		8DB231C62AB82B2E0076F78A /* Dinoreaders */ = {
 			isa = PBXGroup;
 			children = (
+				8DB001D12C4E849E00C7E3D8 /* PlacementTest */,
+				8DB196872C4DA5F800F9D881 /* DinoEggs */,
+				8DB196842C4D7B8E00F9D881 /* Files */,
+				8DB196812C4D7AE400F9D881 /* ConstantClass */,
 				8D76E0AA2C45E50500821B7D /* AudioFiles */,
 				8D76E0A82C45DF9500821B7D /* tiny-encoder.mlmodelc */,
 				8D76E0A62C45DF8700821B7D /* tiny.bin */,
@@ -278,9 +368,8 @@
 				8D19BBFB2AF0D5DF009D070B /* ApplicationSettingView.swift */,
 				8D19BBFD2AF1765B009D070B /* CreateNewProfileView.swift */,
 				8D19BBFF2AF1D90F009D070B /* ImagePicker.swift */,
-				8D19BC042AF2227E009D070B /* PlacementTestLevelSelectView.swift */,
-				8D19BC062AF2227E009D070B /* PlacementTestBookSelectView.swift */,
 				8D76E0AB2C45E96F00821B7D /* AudioRecorder.swift */,
+				8DB036DD2C48DF97004B78F4 /* QuizView.swift */,
 			);
 			path = Dinoreaders;
 			sourceTree = "<group>";
@@ -389,21 +478,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				8DA73BA52AB88CB00098160A /* poppins_extra_light_italic.ttf in Resources */,
+				8DB196862C4D7C1A00F9D881 /* english_word_db.txt in Resources */,
 				8DA73B932AB88CB00098160A /* quicksand_lightitalic.otf in Resources */,
 				8DA73BB02AB88CB00098160A /* poppins_extra_bold.ttf in Resources */,
 				8DA73BAA2AB88CB00098160A /* poppins_bold_italic.ttf in Resources */,
+				8DAB13392C48139000FEB7DB /* success.wav in Resources */,
 				8DA73BA62AB88CB00098160A /* quicksand_bolditalic.otf in Resources */,
 				8D76E0A72C45DF8700821B7D /* tiny.bin in Resources */,
 				8DA73BA42AB88CB00098160A /* poppins_light.ttf in Resources */,
 				8DA73BAB2AB88CB00098160A /* poppins_bold.ttf in Resources */,
 				8DB231CF2AB82B300076F78A /* Preview Assets.xcassets in Resources */,
+				8DAB13412C4813A300FEB7DB /* flip_page_5.wav in Resources */,
 				8DA73BAE2AB88CB00098160A /* poppins_semi_bold_italic.ttf in Resources */,
 				8DA73B922AB88CB00098160A /* poppins_italic.ttf in Resources */,
 				8DA73B952AB88CB00098160A /* stanberry.ttf in Resources */,
 				8D76E0A92C45DF9500821B7D /* tiny-encoder.mlmodelc in Resources */,
 				8DA73B992AB88CB00098160A /* ruddy_regular.ttf in Resources */,
 				8DA73BAF2AB88CB00098160A /* quicksand_dash.otf in Resources */,
+				8DAB13402C4813A300FEB7DB /* flip_page_1.wav in Resources */,
 				8DA73B982AB88CB00098160A /* quicksand_regular.otf in Resources */,
+				8DAB13422C4813A300FEB7DB /* flip_page_2.wav in Resources */,
 				8DA73BAD2AB88CB00098160A /* poppins_medium_italic.ttf in Resources */,
 				8DA73B9C2AB88CB00098160A /* ruddy_bold.ttf in Resources */,
 				8DA73BAC2AB88CB00098160A /* baby_sparkle.otf in Resources */,
@@ -422,7 +516,9 @@
 				8DA73B972AB88CB00098160A /* poppins_medium.ttf in Resources */,
 				8DA73B9F2AB88CB00098160A /* ruddy_black.ttf in Resources */,
 				8DA73BA22AB88CB00098160A /* poppins_regular.ttf in Resources */,
+				8DAB13432C4813A300FEB7DB /* flip_page_4.wav in Resources */,
 				8DA73BA72AB88CB00098160A /* poppins_semi_bold.ttf in Resources */,
+				8DAB133F2C4813A300FEB7DB /* flip_page_3.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,11 +529,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8DAD91702C4ED68A00D6E2CF /* PlacementTestReading.swift in Sources */,
 				8DAA569C2B1D92090030934D /* CanvasData.swift in Sources */,
 				8DB48D982B214B31007CC6BA /* EditDinoBuddyView.swift in Sources */,
+				8DB001CC2C4E1ED600C7E3D8 /* DinoEggsCollectionView.swift in Sources */,
+				8DB036DE2C48DF97004B78F4 /* QuizView.swift in Sources */,
 				8DA4DB802AC05A6D00FF4911 /* StoryPageData.swift in Sources */,
 				8D4D67532ABC05E900B29D6F /* AudioController.swift in Sources */,
+				8DB196832C4D7B0300F9D881 /* WordManager.swift in Sources */,
 				8DCC49022AB845D7002D9929 /* LibraryTabView.swift in Sources */,
+				8DB001D32C4E84CC00C7E3D8 /* BookGradeSelectionView.swift in Sources */,
 				8DCC48FD2AB83D40002D9929 /* HomeView.swift in Sources */,
 				8DA84E962B1EFBFC00CE7989 /* LibraryResponseData.swift in Sources */,
 				8D667EE42AC7D066004A5A5E /* TestView.swift in Sources */,
@@ -454,16 +555,23 @@
 				8D0526062AC1ACAF005BB2F7 /* ProfileView.swift in Sources */,
 				8DB231CA2AB82B2E0076F78A /* ContentView.swift in Sources */,
 				8D19BBFE2AF1765B009D070B /* CreateNewProfileView.swift in Sources */,
+				8DBD4B302C5174B000AC2A24 /* DinoEggObtainData.swift in Sources */,
 				8D667EE22AC7C1C6004A5A5E /* TextToSpeechManager.swift in Sources */,
 				8D76E0AC2C45E96F00821B7D /* AudioRecorder.swift in Sources */,
 				8DB48D9A2B214B31007CC6BA /* DinoBuddyAvatarData.swift in Sources */,
 				8DAA569A2B1D83C70030934D /* CanvasSelectionView.swift in Sources */,
 				8D4D67572ABC0A6B00B29D6F /* SingleBookView.swift in Sources */,
+				8DB001D52C4E87A600C7E3D8 /* GradeBookData.swift in Sources */,
 				8DB231C82AB82B2E0076F78A /* DinoreadersApp.swift in Sources */,
+				8DB001D02C4E2F6F00C7E3D8 /* DinoEggsInfoView.swift in Sources */,
 				8DAA569E2B1DADF10030934D /* CreateOwnStoryView.swift in Sources */,
 				8D4D67512ABBFD3300B29D6F /* StoryBookView.swift in Sources */,
 				8DCC49002AB845A7002D9929 /* HomeTabView.swift in Sources */,
-				8D19BC072AF2227E009D070B /* PlacementTestBookSelectView.swift in Sources */,
+				8DB001CE2C4E238D00C7E3D8 /* DinoEggData.swift in Sources */,
+				8DAD91722C4ED86500D6E2CF /* PlacementTestResultView.swift in Sources */,
+				8DB036E02C496262004B78F4 /* QuizData.swift in Sources */,
+				8DBD4B2C2C5023F300AC2A24 /* ReadingProfileData.swift in Sources */,
+				8DBD4B2E2C50FB7800AC2A24 /* ReadingTimeManager.swift in Sources */,
 				8DF3BD9C2AB87AD300A00E48 /* Style.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

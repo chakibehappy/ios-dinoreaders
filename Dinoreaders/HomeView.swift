@@ -9,41 +9,54 @@ import SwiftUI
 
 struct HomeView: View {
     
+    @State private var selection = 0
+    
     init() {
-        if #available(iOS 15, *) {
-            let tabBarAppearance: UITabBarAppearance = UITabBarAppearance()
-            tabBarAppearance.configureWithOpaqueBackground()
-            UITabBar.appearance().standardAppearance = tabBarAppearance
-            UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
-        }
+        let tabBarAppearance: UITabBarAppearance = UITabBarAppearance()
+        tabBarAppearance.configureWithOpaqueBackground()
+        //UITabBar.appearance().isTranslucent = false
+        UITabBar.appearance().barTintColor = UIColor(red:0.40, green: 0.87, blue: 0.57, alpha: 1)
+        tabBarAppearance.backgroundColor = UIColor(red:0.40, green: 0.87, blue: 0.57, alpha: 1)
+        UITabBar.appearance().standardAppearance = tabBarAppearance
+        UITabBar.appearance().scrollEdgeAppearance = tabBarAppearance
     }
     
     var body: some View {
-        TabView(){
+        TabView(selection : $selection){
             HomeTabView()
                 .tabItem(){
-                    Image(systemName: "phone.fill")
-                    Text("Home")
+                    Image(selection == 0 ? "home_menu_new_ui" : "home_menu_new_ui 1")
+                        .resizable()
+                        .scaledToFill()
+                    //Text("Home")
                 }
+                .tag(0)
             LibraryTabView()
                 .tabItem(){
-                    Image(systemName: "person.2.fill")
-                    Text("Library")
+                    Image(selection == 1 ? "library_menu_new" : "library_menu_new 1")
+                        .resizable()
+                        .scaledToFill()
+                    //Text("Library")
                 }
+                .tag(1)
             CreateTabView()
                 .tabItem(){
-                    Image(systemName: "slider.horizontal.3")
-                    Text("Create")
+                    Image(selection == 2 ? "create_menu_new_ui" : "create_menu_new_ui 1")
+                        .resizable()
+                        .scaledToFill()
+                    //Text("Create")
                 }
+                .tag(2)
             SearchTabView()
                 .tabItem(){
-                    Image(systemName: "phone.fill")
-                    Text("Search")
+                    Image(selection == 3 ? "search_menu_new_ui" : "search_menu_new_ui 1")
+                        .resizable()
+                        .scaledToFill()
+                    //Text("Search")
                 }
+                .tag(3)
         }
-        .onAppear(){
-            
-        }
+        .onAppear(){}
         .navigationBarBackButtonHidden(true)
     }
 }

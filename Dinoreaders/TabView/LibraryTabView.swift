@@ -30,253 +30,258 @@ struct LibraryTabView: View {
     
     var body: some View {
         NavigationStack{
-            VStack{
-                ScrollView(.vertical, showsIndicators: false) {
-                    VStack( alignment:.leading, spacing : 0){
-                        HStack{
-                            Image("new_logo")
-                                .resizable()
-                                .frame(width: 195, height: 52)
-                                .scaledToFill()
-                                .clipped()
-                                .padding(.top, 2.6)
-                                .padding(.all, 6.5)
-                            
-                            Spacer()
-                            
-                            NavigationLink(destination: ProfileView()){
-                                ZStack{
-                                    HStack{
-                                        VStack(alignment: .leading){
-                                            StrokeText(text: "Children 1", width: 1.25, color: .black)
-                                                .foregroundColor(.white)
-                                                .font(.custom("Ruddy-Black", size: 13))
-                                            
-                                            HStack(){
-                                                StrokeText(text: "Points:", width: 1.25, color: .black)
+            ZStack{
+                
+                VStack{
+                    ScrollView(.vertical, showsIndicators: false) {
+                        VStack( alignment:.leading, spacing : 0){
+                            HStack{
+                                Image("new_logo")
+                                    .resizable()
+                                    .frame(width: 195, height: 52)
+                                    .scaledToFill()
+                                    .clipped()
+                                    .padding(.top, 2.6)
+                                    .padding(.all, 6.5)
+                                
+                                Spacer()
+                                
+                                NavigationLink(destination: ProfileView()){
+                                    ZStack{
+                                        HStack{
+                                            VStack(alignment: .leading){
+                                                StrokeText(text: UserDefaultManager.ProfileName, width: 1.25, color: .black)
                                                     .foregroundColor(.white)
                                                     .font(.custom("Ruddy-Black", size: 13))
-                                                StrokeText(text: String(settings.TotalPoints), width: 1.25, color: .black)
-                                                    .foregroundColor(.white)
-                                                    .font(.custom("Ruddy-Black", size: 13))
-                                                    .padding(.leading, 5)
-                                            }
-                                        }
-                                        
-                                        ZStack(){
-                                            AsyncImage(url: URL(string: UserDefaultManager.UserProfilePic)) { phase in
-                                                switch phase {
-                                                case .empty:
-                                                    ProgressView()
-                                                case .success(let image):
-                                                    image
-                                                        .resizable()
-                                                        .scaledToFit()
-                                                case .failure(_):
-                                                    Image(systemName: "person.fill")
-                                                        .resizable()
-                                                        .scaledToFit()
-                                                        .frame(width: 45, height: 45)
-                                                        .clipShape(Circle())
-                                                        .background(.white)
-                                                @unknown default:
-                                                    Text("Unknown state")
+                                                
+                                                HStack(){
+                                                    StrokeText(text: "Points:", width: 1.25, color: .black)
+                                                        .foregroundColor(.white)
+                                                        .font(.custom("Ruddy-Black", size: 13))
+                                                    StrokeText(text: String(settings.TotalPoints), width: 1.25, color: .black)
+                                                        .foregroundColor(.white)
+                                                        .font(.custom("Ruddy-Black", size: 13))
+                                                        .padding(.leading, 5)
                                                 }
                                             }
-                                            .frame(width: 45, height: 45)
-                                            .clipShape(Circle())
-                                            VStack(){
-                                                Spacer()
-                                                StrokeText(text: "Lv" + String(settings.ReadingLevel), width: 1.25, color: .black)
-                                                    .foregroundColor(.white)
-                                                    .font(.custom("Ruddy-Black", size: 13))
+                                            
+                                            ZStack(){
+                                                AsyncImage(url: URL(string: UserDefaultManager.UserProfilePic)) { phase in
+                                                    switch phase {
+                                                    case .empty:
+                                                        ProgressView()
+                                                    case .success(let image):
+                                                        image
+                                                            .resizable()
+                                                            .scaledToFit()
+                                                    case .failure(_):
+                                                        Image(systemName: "person.fill")
+                                                            .resizable()
+                                                            .scaledToFit()
+                                                            .frame(width: 45, height: 45)
+                                                            .clipShape(Circle())
+                                                            .background(.white)
+                                                    @unknown default:
+                                                        Text("Unknown state")
+                                                    }
+                                                }
+                                                .frame(width: 45, height: 45)
+                                                .clipShape(Circle())
+                                                VStack(){
+                                                    Spacer()
+                                                    StrokeText(text: "Lv" + String(settings.ReadingLevel), width: 1.25, color: .black)
+                                                        .foregroundColor(.white)
+                                                        .font(.custom("Ruddy-Black", size: 13))
+                                                }
                                             }
                                         }
+                                        .padding(.leading, 10)
+                                        .padding(.vertical, 5)
+                                        .padding(.trailing, 5)
                                     }
-                                    .padding(.leading, 10)
-                                    .padding(.vertical, 5)
-                                    .padding(.trailing, 5)
+                                    .background(.yellow)
+                                    .cornerRadius(23)
+                                    .padding(.all,10)
+                                    .frame(height:55)
                                 }
-                                .background(.yellow)
-                                .cornerRadius(23)
-                                .padding(.all,10)
-                                .frame(height:55)
                             }
-                        }
-                        
-                        ZStack(alignment: .top){
-                            VStack{
-                                VStack(alignment: .leading, spacing: 0){
-                                    Spacer()
+                            
+                            ZStack(alignment: .top){
+                                VStack{
+                                    VStack(alignment: .leading, spacing: 0){
+                                        Spacer()
+                                    }
+                                    .padding(.top, 35)
+                                    .frame(maxWidth: .infinity, maxHeight:.infinity)
+                                    .background(isBookTab ? bookBodyCol : collectionBodyCol)
                                 }
-                                .padding(.top, 35)
-                                .frame(maxWidth: .infinity, maxHeight:.infinity)
-                                .background(isBookTab ? bookBodyCol : collectionBodyCol)
+                                .padding(.top, 25)
                                 
+                                HStack(spacing:0){
+                                    Button(action:{}){
+                                        StrokeText(text: "Books", width: 1.25, color: .black)
+                                            .foregroundColor(.white)
+                                            .font(.custom("Ruddy-Black", size: 24))
+                                            .frame(maxWidth: .infinity)
+                                            .padding(.vertical, 8)
+                                            .overlay(
+                                                RoundedRectangle(cornerRadius: 5)
+                                                    .stroke(Color.black, lineWidth: isBookTab ? 2 : 0)
+                                            )
+                                    }
+                                    
+                                    Button(action:{}){
+                                        StrokeText(text: "Collections", width: 1.25, color: .black)
+                                            .foregroundColor(.white)
+                                            .font(.custom("Ruddy-Black", size: 24))
+                                            .frame(maxWidth: .infinity)
+                                            .padding(.vertical, 8)
+                                            .overlay(
+                                                RoundedRectangle(cornerRadius: 5)
+                                                    .stroke(Color.black, lineWidth: isBookTab ? 0 : 2 )
+                                            )
+                                    }
+                                }
+                                
+                                HStack(spacing:0){
+                                    Button(action:{
+                                        isBookTab = true
+                                    }){
+                                        StrokeText(text: "Books", width: 1.25, color: .black)
+                                            .foregroundColor(.white)
+                                            .font(.custom("Ruddy-Black", size: 24))
+                                            .frame(maxWidth: .infinity)
+                                            .padding(.vertical, 8)
+                                            .overlay(
+                                                RoundedRectangle(cornerRadius: 5)
+                                                    .stroke(Color.black, lineWidth: isBookTab ? 0 : 3)
+                                            )
+                                    }
+                                    .background(booksHeaderCol)
+                                    .cornerRadius(5)
+                                    
+                                    Button(action:{
+                                        isBookTab = false
+                                    }){
+                                        StrokeText(text: "Collections", width: 1.25, color: .black)
+                                            .foregroundColor(.white)
+                                            .font(.custom("Ruddy-Black", size: 24))
+                                            .frame(maxWidth: .infinity)
+                                            .padding(.vertical, 8)
+                                            .overlay(
+                                                RoundedRectangle(cornerRadius: 5)
+                                                    .stroke(Color.black, lineWidth: isBookTab ? 3 : 0)
+                                            )
+                                    }
+                                    .background(collectionHeaderCol)
+                                    .cornerRadius(5)
+                                }
+                                .padding(.top, 1.5)
                             }
                             .padding(.top, 25)
                             
-                            HStack(spacing:0){
-                                Button(action:{}){
-                                    StrokeText(text: "Books", width: 1.25, color: .black)
-                                        .foregroundColor(.white)
-                                        .font(.custom("Ruddy-Black", size: 24))
-                                        .frame(maxWidth: .infinity)
-                                        .padding(.vertical, 8)
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 5)
-                                                .stroke(Color.black, lineWidth: isBookTab ? 2 : 0)
-                                            )
-                                }
-                                
-                                Button(action:{}){
-                                    StrokeText(text: "Collections", width: 1.25, color: .black)
-                                        .foregroundColor(.white)
-                                        .font(.custom("Ruddy-Black", size: 24))
-                                        .frame(maxWidth: .infinity)
-                                        .padding(.vertical, 8)
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 5)
-                                                .stroke(Color.black, lineWidth: isBookTab ? 0 : 2 )
-                                            )
-                                }
-                            }
-                            
-                            HStack(spacing:0){
-                                Button(action:{
-                                    isBookTab = true
-                                }){
-                                    StrokeText(text: "Books", width: 1.25, color: .black)
-                                        .foregroundColor(.white)
-                                        .font(.custom("Ruddy-Black", size: 24))
-                                        .frame(maxWidth: .infinity)
-                                        .padding(.vertical, 8)
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 5)
-                                                .stroke(Color.black, lineWidth: isBookTab ? 0 : 3)
-                                            )
-                                }
-                                .background(booksHeaderCol)
-                                .cornerRadius(5)
-                                
-                                Button(action:{
-                                    isBookTab = false
-                                }){
-                                    StrokeText(text: "Collections", width: 1.25, color: .black)
-                                        .foregroundColor(.white)
-                                        .font(.custom("Ruddy-Black", size: 24))
-                                        .frame(maxWidth: .infinity)
-                                        .padding(.vertical, 8)
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 5)
-                                                .stroke(Color.black, lineWidth: isBookTab ? 3 : 0)
-                                            )
-                                }
-                                .background(collectionHeaderCol)
-                                .cornerRadius(5)
-                            }
-                            .padding(.top, 1.5)
-                        }
-                        .padding(.top, 25)
-                        
-                        if(isBookTab)
-                        {
-                            VStack(spacing : 0){
-                                HStack()
-                                {
-                                    Text("Favourites")
-                                        .foregroundColor(.white)
-                                        .font(.custom("Ruddy-Black", size: 20))
-                                        .padding(.horizontal, 13)
-                                        .background(.pink)
-                                        .cornerRadius(6.5)
-                                        .underline(true, color: .white)
-                                        .padding(.leading, 15)
-                                        .padding(.bottom, 2)
-                                        .padding(.top, 5)
-                                    Spacer()
-                                }
-                                .background(bookBodyCol)
-                                .padding(.bottom, 15)
-                                
-                                ScrollView(.horizontal, showsIndicators: false) {
-                                    HStack(alignment: .top, spacing:15){
-                                        VStack{}
-                                        if let lib = libraryResponse {
-                                            if let content = lib.data[0].content {
-                                                ForEach(content, id: \.id) { book in
-                                                    NavigationLink(destination: SingleBookView(book_id: book.id)){
-                                                        LibraryItemView(item: book, isWhiteText: false, toogleFunction: fetchBookDataFromAPI)
+                            if(isBookTab)
+                            {
+                                VStack(spacing : 0){
+                                    HStack()
+                                    {
+                                        Text("Favourites")
+                                            .foregroundColor(.white)
+                                            .font(.custom("Ruddy-Black", size: 20))
+                                            .padding(.horizontal, 13)
+                                            .background(.pink)
+                                            .cornerRadius(6.5)
+                                            .underline(true, color: .white)
+                                            .padding(.leading, 15)
+                                            .padding(.bottom, 2)
+                                            .padding(.top, 5)
+                                        Spacer()
+                                    }
+                                    .background(bookBodyCol)
+                                    .padding(.bottom, 15)
+                                    
+                                    ScrollView(.horizontal, showsIndicators: false) {
+                                        HStack(alignment: .top, spacing:15){
+                                            VStack{}
+                                            if let lib = libraryResponse {
+                                                if lib.data.count > 0 {
+                                                    if let content = lib.data[0].content {
+                                                        ForEach(content, id: \.id) { book in
+                                                            NavigationLink(destination: SingleBookView(book_id: book.id)){
+                                                                LibraryItemView(item: book, isWhiteText: false, toogleFunction: fetchBookDataFromAPI)
+                                                            }
+                                                        }
                                                     }
                                                 }
                                             }
+                                            VStack{}
                                         }
-                                        VStack{}
                                     }
+                                    .background(bookBodyCol)
                                 }
-                                .background(bookBodyCol)
-                                
-                                VStack(){
-                                    Spacer()
-                                }
-                                .frame(width:UIScreen.main.bounds.width, height: max(0, UIScreen.main.bounds.height - (CGFloat(255 + 300))))
                                 .background(bookBodyCol)
                             }
-                            .background(bookBodyCol)
-                        }
-                        else
-                        {
-                            VStack(spacing : 0){
-                                HStack()
-                                {
-                                    Text("All Collections")
-                                        .foregroundColor(.white)
-                                        .font(.custom("Ruddy-Black", size: 20))
-                                        .padding(.horizontal, 13)
-                                        .background(.blue)
-                                        .cornerRadius(6.5)
-                                        .underline(true, color: .white)
-                                        .padding(.leading, 10)
-                                        .padding(.bottom, 2)
-                                        .padding(.top, 5)
-                                    Spacer()
-                                }
-                                .background(collectionBodyCol)
-                                .padding(.bottom, 15)
-                                
-                                ScrollView(.horizontal, showsIndicators: false) {
-                                    HStack(alignment: .top, spacing:20){
-                                        ForEach(collections, id: \.id){ collection in
-                                            Button(action:{
-                                                selectedCollection = collection
-                                                showBookCollections = true
-                                            }){
-                                                CollectionSearchView(item: collection, isWhiteText: false, width:130, height:195)
+                            else
+                            {
+                                VStack(spacing : 0){
+                                    HStack()
+                                    {
+                                        Text("All Collections")
+                                            .foregroundColor(.white)
+                                            .font(.custom("Ruddy-Black", size: 20))
+                                            .padding(.horizontal, 13)
+                                            .background(.blue)
+                                            .cornerRadius(6.5)
+                                            .underline(true, color: .white)
+                                            .padding(.leading, 10)
+                                            .padding(.bottom, 2)
+                                            .padding(.top, 5)
+                                        Spacer()
+                                    }
+                                    .background(collectionBodyCol)
+                                    .padding(.bottom, 15)
+                                    
+                                    ScrollView(.horizontal, showsIndicators: false) {
+                                        HStack(alignment: .top, spacing:20){
+                                            ForEach(collections, id: \.id){ collection in
+                                                Button(action:{
+                                                    selectedCollection = collection
+                                                    showBookCollections = true
+                                                }){
+                                                    CollectionSearchView(item: collection, isWhiteText: false, width:130, height:195)
+                                                }
                                             }
                                         }
+                                        .padding(.horizontal, 10)
                                     }
+                                    .background(collectionBodyCol)
                                 }
-                                .padding(.horizontal, 10)
-                                .background(collectionBodyCol)
-                                
-                                VStack(){
-                                    Spacer()
-                                }
-                                .frame(width:UIScreen.main.bounds.width, height: max(0, UIScreen.main.bounds.height - (CGFloat(255 + 300))))
                                 .background(collectionBodyCol)
                             }
-                            .background(collectionBodyCol)
                         }
                     }
-                }
-                .background(
-                    Image("home_gradient_bg")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                )
-                .onAppear(){
-                    fetchBookDataFromAPI()
-                    fetchCollectionDataFromAPI()
+                    .background(
+                        ZStack{
+                            Image("home_gradient_bg")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                            if isBookTab {
+                                bookBodyCol
+                                    .edgesIgnoringSafeArea(.all)
+                                    .frame(maxHeight: .infinity, alignment: .top)
+                                    .padding(.top, 250) // Padding from the top
+                            } else {
+                                collectionBodyCol
+                                    .edgesIgnoringSafeArea(.all)
+                                    .frame(maxHeight: .infinity, alignment: .top)
+                                    .padding(.top, 250) // Padding from the top
+                            }
+                        }
+                    )
+                    .onAppear(){
+                        fetchBookDataFromAPI()
+                        fetchCollectionDataFromAPI()
+                    }
                 }
             }
             .sheet(item: $selectedCollection){ col in

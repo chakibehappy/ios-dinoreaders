@@ -4,6 +4,7 @@
 //
 //  Created by Chaki Behappy on 01/11/23.
 //
+import Foundation
 import SwiftUI
 import Alamofire
 
@@ -159,57 +160,101 @@ struct CreateNewProfileView: View {
             ImagePicker(selectedImage: $selectedImage)
         }
     }
-    
-    func uploadProfileImage(name: String, dob: String, image: UIImage, completion: @escaping (Error?) -> Void) {
-        guard let imageData = image.jpegData(compressionQuality: 0.8) else {
-            completion(NSError(domain: "YourAppErrorDomain", code: -1, userInfo: ["message": "Failed to create image data"]))
+
+    func uploadImage(image : UIImage) {
+        
+        guard let imageData = image.jpegData(compressionQuality: 0.1) else {
+            isButtonVisible = true
             return
         }
         
         let imageSizeInKB = Double(imageData.count) / 1024.0
+        print(imageSizeInKB)
         if imageSizeInKB > 2048 {
             // Display an error message to the user or prevent the upload
             print("Image size exceeds the limit")
+            isButtonVisible = true
             return
         }
-
-        let headers: HTTPHeaders = [
-            "Authorization": "Bearer \(UserDefaultManager.UserAccessToken)"
-        ]
-
-        AF.upload(
-            multipartFormData: { multipartFormData in
-                multipartFormData.append(imageData, withName: "img_url", fileName: "image.jpg", mimeType: "image/jpeg")
-                multipartFormData.append(name.data(using: .utf8)!, withName: "name")
-                multipartFormData.append(dob.data(using: .utf8)!, withName: "dob")
-            },
-            to: "http://dinoreaders.com/api/profile/store", // Your API URL here
-            method: .post,
-            headers: headers
-        )
-        .validate(statusCode: 200..<300)
-        .response { response in
-            switch response.result {
-            case .success:
-                completion(nil) // Success
-            case .failure(let error):
-                completion(error) // Error
-            }
+        
+        guard let url = URL(string: API.SAVE_PROFILE_API) else {
+            return
         }
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        
+        // Set Bearer token
+        let authHeader = "Bearer \(UserDefaultManager.UserAccessToken)"
+        request.setValue(authHeader, forHTTPHeaderField: "Authorization")
+        
+        let boundary = UUID().uuidString
+        let contentType = "multipart/form-data; boundary=\(boundary)"
+        request.setValue(contentType, forHTTPHeaderField: "Content-Type")
+        
+        var body = Data()
+        
+        body.append("--\(boundary)\r\n".data(using: .utf8)!)
+        body.append("Content-Disposition: form-data; name=\"img_url\"; filename=\"image.jpg\"\r\n".data(using: .utf8)!)
+        body.append("Content-Type: image/jpeg\r\n\r\n".data(using: .utf8)!)
+        body.append(imageData)
+        body.append("\r\n".data(using: .utf8)!)
+        
+        body.append("--\(boundary)\r\n".data(using: .utf8)!)
+        body.append("Content-Disposition: form-data; name=\"name\"\r\n\r\n".data(using: .utf8)!)
+        body.append("\(username)\r\n".data(using: .utf8)!)
+        
+        body.append("--\(boundary)\r\n".data(using: .utf8)!)
+        body.append("Content-Disposition: form-data; name=\"dob\"\r\n\r\n".data(using: .utf8)!)
+        body.append("\(dateFormatter.string(from: selectedDate))\r\n".data(using: .utf8)!)
+        
+        body.append("--\(boundary)--\r\n".data(using: .utf8)!)
+        
+        request.httpBody = body
+        request.timeoutInterval = 600
+        request.networkServiceType = .responsiveData
+        //request.networkServiceType = .responsiveAV
+        
+        URLSession.shared.dataTask(with: request) { data, response, error in
+//            if let error = error {
+//                print(error)
+//            }
+//            print(response)
+            DispatchQueue.main.async {
+                isButtonVisible = true
+                self.presentationMode.wrappedValue.dismiss()
+            }
+        }.resume()
     }
+
+    
 
     func saveProfile(){
         if let selectedImage = selectedImage{
-            
-            uploadProfileImage(name: username, dob: dateFormatter.string(from: selectedDate), image: selectedImage) { error in
-                if let error = error {
-                    print("Error uploading profile image: \(error)")
+            uploadImage(image: selectedImage)
+        }
+        else {
+            let headers: HTTPHeaders = [
+                "Authorization": "Bearer \(UserDefaultManager.UserAccessToken)"
+            ]
+
+            AF.upload(
+                multipartFormData: { multipartFormData in
+                    multipartFormData.append(username.data(using: .utf8)!, withName: "name")
+                    multipartFormData.append(dateFormatter.string(from: selectedDate).data(using: .utf8)!, withName: "dob")
+                },
+                to: "http://dinoreaders.com/api/profile/store", // Your API URL here
+                method: .post,
+                headers: headers
+            )
+            .validate(statusCode: 200..<300)
+            .response { response in
+                print(response)
+                switch response.result {
+                case .success:
                     self.presentationMode.wrappedValue.dismiss()
-                    // Handle the error as needed (e.g., show an alert)
-                } else {
-                    print("Profile image uploaded successfully")
-                    self.presentationMode.wrappedValue.dismiss()
-                    // Handle success as needed (e.g., navigate to a different view)
+                case .failure(let error):
+                    print(error)
+                    isButtonVisible = true
                 }
             }
         }

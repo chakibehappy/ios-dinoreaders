@@ -7,7 +7,7 @@ struct CollectionResponse: Codable {
 struct Collection: Codable, Identifiable {
     let id: Int
     let name: String
-    let description: String
+    let description: String?
     let visibility: Int
     let status: Int
     let created_at: String?
@@ -18,7 +18,7 @@ struct Collection: Codable, Identifiable {
     let books: [CollectionBook]
     let collection_books: [CollectionBookID]
     let organization: [String] // Adjust the type based on the actual data
-    let profiles: CollectionProfile
+    let profiles: CollectionProfile?
 }
 
 struct CollectionBook: Codable, Identifiable {
@@ -26,7 +26,7 @@ struct CollectionBook: Codable, Identifiable {
     let author: String
     let title: String
     let lang: String
-    let description: String
+    let description: String?
     let read_url: String?
     let image_url: String
 }

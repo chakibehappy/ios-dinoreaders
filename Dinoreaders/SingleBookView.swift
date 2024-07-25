@@ -11,86 +11,96 @@ struct SingleBookView: View {
     
     let book_id: Int
     @State var singleBook: SingleBook?
-    //let book: Book
-    
+    @State var quizData: QuizData = QuizData()
     
     @State private var latestBooks: [Book] = []
     @State private var storyPageData: StoryPageData? = nil
     @State var showTabBar : Bool = false
+    
+    @EnvironmentObject var settings : UserSettings
     
     @Environment(\.presentationMode) var presentationMode
 
     let bgColor : Color = Color(red: 80/255, green: 120/255, blue: 1)
     let bottomColor : Color = Color(red: 64/255, green: 105/255, blue: 1)
     let pinkCol : Color = Color(red: 245/255, green: 153/255, blue: 158/255)
+    
+    
+    let blue : Color = Color(red:82/255, green: 120/255, blue:1)
+    let blueGradients: [Color] = [
+        Color(red:79/255, green: 75/255, blue:1),
+        Color(red:85/255, green: 99/255, blue:1),
+        Color.white
+    ]
+    
+    @State var showSelectingWindow = false
 
     var body: some View {
         
         NavigationStack{
-            VStack(spacing: 0){
-                ZStack{
-                    HStack{
-                        NavigationLink(destination: HomeTabView())
-                        {
-                            Image("back_arrow_new")
-                                .resizable()
-                                .frame(width: 50, height: 50)
-                                .scaledToFill()
-                                .clipped()
-                                .padding(.horizontal, 10)
-                                .padding(.vertical, 5)
-                        }
-                        Spacer()
-                    }
-                    
-                    GeometryReader { geometry in
-                        VStack{
-                            Spacer()
-                            if let book = singleBook{
-                                Text(book.title)
-                                    .font(.custom("Ruddy-Bold", size: 32))
-                                    .foregroundColor(.white)
-                                Spacer()
+            ZStack{
+                VStack(spacing: 0){
+                    ZStack{
+                        HStack{
+                            //NavigationLink(destination: HomeTabView())
+                            Button( action: { self.presentationMode.wrappedValue.dismiss()})
+                            {
+                                Image("back_arrow_new")
+                                    .resizable()
+                                    .frame(width: 50, height: 50)
+                                    .scaledToFill()
+                                    .clipped()
+                                    .padding(.horizontal, 10)
+                                    .padding(.vertical, 5)
                             }
+                            Spacer()
                         }
-                        .frame(width: geometry.size.width - 105)
-                        .padding(.horizontal, 70)
-                    }
-                }
-                .frame(height: 65)
-                .background(bgColor)
-                
-                ScrollView(.vertical, showsIndicators: false)
-                {
-                    if let book = singleBook
-                    {
-                        VStack(spacing: 0){
-                            ZStack{
-                                AsyncImage( url: URL(string: book.image_url)) { phase in
-                                    switch phase {
-                                      case .empty:
-                                        ProgressView()
-                                    case .success(let image):
-                                        image
-                                            .resizable()
-                                            .scaledToFill()
-                                            .clipped()
-                                            .cornerRadius(5)
-                                            .frame(height: 455)
-                                    case .failure(let error):
-                                        Text("Error: \(error.localizedDescription)")
-                                    @unknown default:
-                                        Text("Unknown state")
-                                    }
+                        
+                        GeometryReader { geometry in
+                            VStack{
+                                Spacer()
+                                if let book = singleBook{
+                                    Text(book.title)
+                                        .font(.custom("Ruddy-Bold", size: 32))
+                                        .foregroundColor(.white)
+                                    Spacer()
                                 }
-                                if let storyPageData = storyPageData {
+                            }
+                            .frame(width: geometry.size.width - 105)
+                            .padding(.horizontal, 70)
+                        }
+                    }
+                    .frame(height: 65)
+                    .padding(.horizontal, 30)
+                    .background(bgColor)
+                    
+                    ScrollView(.vertical, showsIndicators: false)
+                    {
+                        if let book = singleBook
+                        {
+                            VStack(spacing: 0){
+                                ZStack{
+                                    AsyncImage( url: URL(string: book.image_url)) { phase in
+                                        switch phase {
+                                        case .empty:
+                                            ProgressView()
+                                        case .success(let image):
+                                            image
+                                                .resizable()
+                                                .scaledToFill()
+                                                .clipped()
+                                                .cornerRadius(5)
+                                                .frame(height: 455)
+                                        case .failure(let error):
+                                            Text("Error: \(error.localizedDescription)")
+                                        @unknown default:
+                                            Text("Unknown state")
+                                        }
+                                    }
                                     
-                                    NavigationLink(destination: StoryBookView(
-                                        storyPageData: storyPageData,
-                                        bookDataPath: API.AWS_PATH + "/public/document/" + book.uid + "/",
-                                        bookId : book_id,
-                                        activePage: 0, ttsManager: TextToSpeechManager()
-                                    )){
+                                    Button(action:{
+                                        showSelectingWindow = true
+                                    }){
                                         Image("btn_begin")
                                             .resizable()
                                             .frame(width: 200, height: 60)
@@ -99,87 +109,219 @@ struct SingleBookView: View {
                                             .padding(.top, 370)
                                     }
                                 }
-                            }
-                            
-                            VStack(alignment: .leading, spacing: 0){
+                                
                                 VStack(alignment: .leading, spacing: 0){
-                                    HStack{
-                                        VStack(spacing:0){
-                                            Text("Author")
-                                                .font(.custom("Ruddy-Bold", size: 24))
-                                                .foregroundColor(.white)
-                                                .frame(maxWidth: .infinity, alignment:.leading)
-                                            Text(book.author)
-                                                .font(.custom("Ruddy-Regular", size: 14))
-                                                .foregroundColor(.white)
-                                                .frame(maxWidth: .infinity, alignment:.leading)
-                                        }
-                                    }
-                                    .padding(.bottom, 5)
-                                    Text("Reading level : \(book.reading_level)" )
-                                        .font(.custom("Ruddy-Bold", size: 18))
-                                        .foregroundColor(.white)
-                                        .frame(maxWidth: .infinity, alignment:.leading)
-                                }
-                                .padding(.horizontal, 20)
-                                .padding(.vertical, 10)
-                                .background(bgColor)
-                                .shadow(color: Color.black.opacity(0.4), radius: 10, x: 0, y: 4)
-                                
-                                
-                                HStack{
-                                    Text("More for you!")
-                                        .foregroundColor(.white)
-                                        .font(.custom("Ruddy-Black", size: 20))
-                                        .padding(.horizontal, 13)
-                                        .background(pinkCol)
-                                        .cornerRadius(6.5)
-                                        .underline(true, color: .white)
-                                        .padding(.leading, 10)
-                                        .padding(.bottom, 15)
-                                        .padding(.top, 25)
-                                    Spacer()
-                                }
-                                
-                                
-                                ScrollView(.horizontal, showsIndicators: false) {
-                                    HStack(spacing: 20) {
-                                        ForEach(latestBooks, id: \.id) { book in
-                                            NavigationLink(destination: SingleBookView(book_id: book.id)){
-                                                ItemView(item: book, isWhiteText: true, toogleFunction: fetchDataFromAPI)
+                                    VStack(alignment: .leading, spacing: 0){
+                                        HStack{
+                                            VStack(spacing:0){
+                                                Text("Author")
+                                                    .font(.custom("Ruddy-Bold", size: 24))
+                                                    .foregroundColor(.white)
+                                                    .frame(maxWidth: .infinity, alignment:.leading)
+                                                Text(book.author)
+                                                    .font(.custom("Ruddy-Regular", size: 14))
+                                                    .foregroundColor(.white)
+                                                    .frame(maxWidth: .infinity, alignment:.leading)
                                             }
                                         }
+                                        .padding(.bottom, 5)
+                                        Text("Reading level : \(book.reading_level)" )
+                                            .font(.custom("Ruddy-Bold", size: 18))
+                                            .foregroundColor(.white)
+                                            .frame(maxWidth: .infinity, alignment:.leading)
                                     }
-                                    .padding(.leading, 15)
+                                    .padding(.horizontal, 20)
+                                    .padding(.vertical, 10)
+                                    .background(bgColor)
+                                    .shadow(color: Color.black.opacity(0.4), radius: 10, x: 0, y: 4)
+                                    
+                                    
+                                    HStack{
+                                        Text("More for you!")
+                                            .foregroundColor(.white)
+                                            .font(.custom("Ruddy-Black", size: 20))
+                                            .padding(.horizontal, 13)
+                                            .background(pinkCol)
+                                            .cornerRadius(6.5)
+                                            .underline(true, color: .white)
+                                            .padding(.leading, 10)
+                                            .padding(.bottom, 15)
+                                            .padding(.top, 25)
+                                        Spacer()
+                                    }
+                                    
+                                    
+                                    ScrollView(.horizontal, showsIndicators: false) {
+                                        HStack(spacing: 20) {
+                                            ForEach(latestBooks, id: \.id) { book in
+                                                NavigationLink(destination: SingleBookView(book_id: book.id)){
+                                                    ItemView(item: book, isWhiteText: true, toogleFunction: fetchDataFromAPI)
+                                                }
+                                            }
+                                        }
+                                        .padding(.leading, 15)
+                                    }
+                                    .onAppear {
+                                        fetchDataFromAPI()
+                                    }
+                                    
+                                    
+                                    Spacer()
                                 }
-                                .onAppear {
-                                    fetchDataFromAPI()
-                                }
-                                
+                                .padding(.horizontal, 30)
                                 
                                 Spacer()
                             }
-                            .padding(.horizontal, 30)
-                            
-                            Spacer()
+                            .background(bottomColor)
                         }
-                        .background(bottomColor)
+                    }
+                }
+                
+                
+                if showSelectingWindow {
+                    Button(action:{
+                        showSelectingWindow = false
+                    }){
+                        ZStack{
+                            Color.black.opacity(0.5)
+                                .edgesIgnoringSafeArea(.all)
+                            if isTodayReadingDay(readingProfile: settings.ReadingSetting) {
+                                if !isReadingTimeOver() {
+                                    VStack{
+                                        if let book = singleBook {
+                                            if let storyPageData = storyPageData {
+//                                                NavigationLink(destination: QuizView(quizData: quizData, bookId:book_id)
+//                                                ){
+                                                NavigationLink(destination: StoryBookView(
+                                                    storyPageData: storyPageData,
+                                                    bookDataPath: API.AWS_PATH + "/public/document/" + book.uid + "/",
+                                                    bookId : book_id,
+                                                    activePage: 0,
+                                                    ttsManager: TextToSpeechManager(),
+                                                    quizData: quizData,
+                                                    isReadToMe: true
+                                                )){
+                                                    GradientViewButton(width:250, text: "Read To Me", btnCol: blue, colors: blueGradients, textSize: 24)
+                                                }
+                                                
+                                                NavigationLink(destination: StoryBookView(
+                                                    storyPageData: storyPageData,
+                                                    bookDataPath: API.AWS_PATH + "/public/document/" + book.uid + "/",
+                                                    bookId : book_id,
+                                                    activePage: 0,
+                                                    ttsManager: TextToSpeechManager(),
+                                                    quizData: quizData,
+                                                    isReadToMe: false
+                                                )){
+                                                    GradientViewButton(width:250, text: "Read Alone", btnCol: blue, colors: blueGradients, textSize: 24)
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                                else{
+                                    VStack(alignment: .center, spacing: 0) {
+                                        HStack(alignment: .center){
+                                            StrokeText(text: "No Reading Today!", width: 2, color: .white)
+                                                .font(.custom("Ruddy-Bold", size: 22))
+                                                .foregroundColor(.black)
+                                                .padding(.top, 30)
+                                                .padding(.horizontal, 20)
+                                                .multilineTextAlignment(.center)
+                                        }
+                                        
+                                        HStack(alignment: .center){
+                                            StrokeText(text: "Your reading time is over for today.", width: 1.5, color: .white)
+                                                .font(.custom("Ruddy-Regular", size: 16))
+                                                .foregroundColor(.black)
+                                                .padding(.top, 5)
+                                                .padding(.bottom, 10)
+                                                .padding(.horizontal, 20)
+                                                .multilineTextAlignment(.center)
+                                        }
+                                        Button(action: { showSelectingWindow = false }) {
+                                            Text("OK")
+                                                .font(.custom("Ruddy-Bold", size: 22))
+                                                .foregroundColor(.white)
+                                                .padding(.vertical, 5)
+                                                .padding(.horizontal, 40)
+                                        }
+                                        .background(Color.black)
+                                        .cornerRadius(15)
+                                        .padding(.vertical, 20)
+                                    }
+                                    .frame(width: 300)
+                                    .background(.yellow)
+                                    .cornerRadius(15)
+                                    .padding()
+                                }
+                            }
+                            else
+                            {
+                                VStack(alignment: .center, spacing: 0) {
+                                    HStack(alignment: .center){
+                                        StrokeText(text: "No Reading Today!", width: 2, color: .white)
+                                            .font(.custom("Ruddy-Bold", size: 22))
+                                            .foregroundColor(.black)
+                                            .padding(.top, 30)
+                                            .padding(.horizontal, 20)
+                                            .multilineTextAlignment(.center)
+                                    }
+                                    
+                                    HStack(alignment: .center){
+                                        StrokeText(text: "You cannot read the book today.", width: 1.5, color: .white)
+                                            .font(.custom("Ruddy-Regular", size: 16))
+                                            .foregroundColor(.black)
+                                            .padding(.top, 5)
+                                            .padding(.bottom, 10)
+                                            .padding(.horizontal, 20)
+                                            .multilineTextAlignment(.center)
+                                    }
+                                    Button(action: { showSelectingWindow = false }) {
+                                        Text("OK")
+                                            .font(.custom("Ruddy-Bold", size: 22))
+                                            .foregroundColor(.white)
+                                            .padding(.vertical, 5)
+                                            .padding(.horizontal, 40)
+                                    }
+                                    .background(Color.black)
+                                    .cornerRadius(15)
+                                    .padding(.vertical, 20)
+                                }
+                                .frame(width: 300)
+                                .background(.yellow)
+                                .cornerRadius(15)
+                                .padding()
+                            }
+                        }
                     }
                 }
             }
         }
+        .background(bgColor)
         .navigationBarBackButtonHidden(true)
         .navigationBarHidden(true)
         .toolbar(.hidden, for: .tabBar)
         .onAppear(){
+            showSelectingWindow = false
             forcePortraitOrientation()
             getBookDetail()
+            getQuizData()
+            print(Int(UserDefaults.standard.double(forKey: "totalTimeSpent")))
         }
         .onDisappear(){}
     }
     
+    func isReadingTimeOver() -> Bool{
+        if !settings.ReadingSetting.set_limit_time{
+            return false
+        }
+        let reading_time = Int(UserDefaults.standard.double(forKey: "totalTimeSpent"))
+        return (settings.ReadingSetting.reading_time * 60) - reading_time <= 0
+    }
+    
     func getBookDetail(){
-        print(API.GETBOOKDETAIL_API + String(book_id))
+        //print(API.GETBOOKDETAIL_API + String(book_id))
         guard let url = URL(string: API.GETBOOKDETAIL_API + String(book_id)) else {
             return
         }
@@ -190,15 +332,15 @@ struct SingleBookView: View {
         request.setValue("application/json", forHTTPHeaderField: "Accept")
                 
         URLSession.shared.dataTask(with: request) { data, response, error in
-            if let response = response as? HTTPURLResponse {
-                        print("Response status code: \(response.statusCode)")
-                        print("Response headers: \(response.allHeaderFields)")
-                    }
+//            if let response = response as? HTTPURLResponse {
+//                print("Response status code: \(response.statusCode)")
+//                print("Response headers: \(response.allHeaderFields)")
+//            }
             
             if let data = data {
-                if let jsonString = String(data: data, encoding: .utf8) {
-                                print("Response JSON string: \(jsonString)")
-                            }
+//                if let jsonString = String(data: data, encoding: .utf8) {
+//                    print("Response JSON string: \(jsonString)")
+//                }
                 do {
                     let decoder = JSONDecoder()
                     let result = try decoder.decode(SingleBookData.self, from: data)
@@ -211,6 +353,41 @@ struct SingleBookView: View {
 
             }
 
+        }.resume()
+    }
+    
+    func getQuizData() {
+        guard let url = URL(string: API.GETBOOKQUIZ_API + String(book_id)) else {
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("Bearer \(UserDefaultManager.UserAccessToken)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Accept")
+                
+        URLSession.shared.dataTask(with: request) { data, response, error in
+//            if let response = response as? HTTPURLResponse {
+//                print("Response status code: \(response.statusCode)")
+//                print("Response headers: \(response.allHeaderFields)")
+//            }
+            
+            if let data = data {
+//                if let jsonString = String(data: data, encoding: .utf8) {
+//                    print("Response JSON string: \(jsonString)")
+//                }
+                do {
+                    let decoder = JSONDecoder()
+                    let result = try decoder.decode(QuizData.self, from: data)
+                    DispatchQueue.main.async {
+                        if result.success == true {
+                            self.quizData = result
+                        }
+                    }
+                } catch {
+                    print("Error decoding quiz data JSON: \(error)")
+                }
+            }
         }.resume()
     }
     
@@ -235,7 +412,7 @@ struct SingleBookView: View {
                         }
                     }
                 } catch {
-                    print("Error decoding JSON: \(error)")
+                    print("Error decoding list more for you JSON: \(error)")
                 }
             }
                                 
@@ -253,18 +430,6 @@ struct SingleBookView: View {
                                 let isStoryPage = true // or any logic to determine its value
                                 let playAudio = filteredPages.first(where: { $0.page_number == page.pageNumber })?.play_audio == 1
 
-                                // Constructing fullText based on lines
-                                var fullText = ""
-                                if !page.lines.isEmpty {
-                                    for (index, line) in page.lines.enumerated() {
-                                        fullText += line.text
-                                        if index < page.lines.count - 1 {
-                                            fullText += " "
-                                        }
-                                    }
-                                    fullText = fullText.trimmingCharacters(in: .whitespacesAndNewlines).replacingOccurrences(of: "\\s+", with: " ", options: .regularExpression)
-                                }
-                                print(fullText)
 
                                 return Page(
                                     pageNumber: page.pageNumber,
@@ -275,10 +440,12 @@ struct SingleBookView: View {
                                     lines: page.lines,
                                     isStoryPage: isStoryPage,
                                     playAudio: playAudio,
-                                    fullText: fullText
+                                    fullText: ""
                                 )
                             }
-                            storyPageData = StoryPageData(creator: bookData.creator, pages: filteredStoryPages)
+                            
+                            let currentPageData = StoryPageData(creator: bookData.creator, pages: filteredStoryPages)
+                            storyPageData = processPages(currentPageData)
                         case .failure(let error):
                             print("Error: \(error)")
                         }
@@ -287,9 +454,6 @@ struct SingleBookView: View {
                     print("Invalid URL")
                 }
             }
-
-            
-            
         }.resume()
     }
     

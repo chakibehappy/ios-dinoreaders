@@ -58,19 +58,19 @@ struct HomeTabView: View {
     @State private var isScrollingEnabled = false
     
     @EnvironmentObject var settings : UserSettings
-    
+    @EnvironmentObject var readingTimeManager : ReadingTimeManager
     
     init() {
-       UIScrollView.appearance().bounces = false
+        UIScrollView.appearance().bounces = false
+        if WordManager.shared.words.count == 0 {
+            WordManager.shared.loadWords()
+        }
     }
     
     var body: some View {
         NavigationStack{
             ScrollView(.vertical, showsIndicators: false) {
                 ZStack{
-                    Image("home_gradient_bg")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
                     VStack(alignment: .leading) {
                         HStack{
                             Image("new_logo")
@@ -87,7 +87,7 @@ struct HomeTabView: View {
                                 ZStack{
                                     HStack{
                                         VStack(alignment: .leading){
-                                            StrokeText(text: "Children 1", width: 1.25, color: .black)
+                                            StrokeText(text: UserDefaultManager.ProfileName, width: 1.25, color: .black)
                                                 .foregroundColor(.white)
                                                 .font(.custom("Ruddy-Black", size: 13))
                                             
@@ -158,9 +158,11 @@ struct HomeTabView: View {
                         ScrollView(.horizontal, showsIndicators: false) {
                             HStack(spacing: 20) {
                                 if let responseData = responseData {
-                                    ForEach(responseData.data[1].content, id: \.id) { book in
-                                        NavigationLink(destination: SingleBookView(book_id: book.id)){
-                                            ItemView(item: book, isWhiteText: false, toogleFunction: fetchDataFromAPI)
+                                    if responseData.data.count > 1 {
+                                        ForEach(responseData.data[1].content, id: \.id) { book in
+                                            NavigationLink(destination: SingleBookView(book_id: book.id)){
+                                                ItemView(item: book, isWhiteText: false, toogleFunction: fetchDataFromAPI)
+                                            }
                                         }
                                     }
                                 }
@@ -169,28 +171,33 @@ struct HomeTabView: View {
                         }
                         
                         
-                        Text("Top Books")
-                            .foregroundColor(.white)
-                            .font(.custom("Ruddy-Black", size: 20))
-                            .padding(.horizontal, 13)
-                            .background(.orange)
-                            .cornerRadius(6.5)
-                            .underline(true, color: .white)
-                            .padding(.leading, 13)
-                            .padding(.bottom, 2)
-                        
-                        
-                        ScrollView(.horizontal, showsIndicators: false) {
-                            HStack(spacing: 20) {
-                                if let responseData = responseData {
-                                    ForEach(responseData.data[2].content, id: \.id){book in
-                                        NavigationLink(destination: SingleBookView(book_id: book.id)){
-                                            ItemView(item: book, isWhiteText: false, toogleFunction : fetchDataFromAPI)
+                        if let responseData = responseData {
+                            if responseData.data.count > 2 {
+                                ForEach(Array(responseData.data[2...]).enumerated().map { $0 }, id: \.offset) { index, item in
+                                    Text(item.name)
+                                        .foregroundColor(.white)
+                                        .font(.custom("Ruddy-Black", size: 20))
+                                        .padding(.horizontal, 13)
+                                        .background(.orange)
+                                        .cornerRadius(6.5)
+                                        .underline(true, color: .white)
+                                        .padding(.leading, 13)
+                                        .padding(.bottom, 2)
+                                    
+                                    
+                                    ScrollView(.horizontal, showsIndicators: false) {
+                                        HStack(spacing: 20) {
+                                            ForEach(item.content, id: \.id){book in
+                                                NavigationLink(destination: SingleBookView(book_id: book.id)){
+                                                    ItemView(item: book, isWhiteText: false, toogleFunction : fetchDataFromAPI)
+                                                }
+                                            }
                                         }
+                                        .padding(.leading, 15)
                                     }
                                 }
+                                
                             }
-                            .padding(.leading, 15)
                         }
                         Spacer()
                     }
@@ -203,14 +210,30 @@ struct HomeTabView: View {
                     fetchDataFromAPI()
                 }
             }
+            .background(
+                Image("home_gradient_bg")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+            )
         }
     }
     
+    func isSameDay(_ date1: Date, _ date2: Date) -> Bool {
+        let calendar = Calendar.current
+        let components1 = calendar.dateComponents([.year, .month, .day], from: date1)
+        let components2 = calendar.dateComponents([.year, .month, .day], from: date2)
+        return components1 == components2
+    }
+    
     func getUserInfo(){
+        let today = Date()
+        if !isSameDay(today, readingTimeManager.date){
+            readingTimeManager.resetTracking()
+        }        
         guard let url = URL(string: API.GETPROFILEINFO_API + String(UserDefaultManager.ProfileID)) else {
             return
         }
-            
+        
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("Bearer \(UserDefaultManager.UserAccessToken)", forHTTPHeaderField: "Authorization")
@@ -404,7 +427,7 @@ struct ItemView: View {
                     }, receiveValue: { data in
                         // Print the raw response data
                         if let string = String(data: data, encoding: .utf8) {
-                            print("Raw Response: \(string)")
+                            //print("Raw Response: \(string)")
                             toogleFunction()
                         }
                     })
@@ -425,9 +448,38 @@ struct StrokeText: View {
                 Text(text).offset(x: -width, y: -width)
                 Text(text).offset(x: -width, y:  width)
                 Text(text).offset(x:  width, y: -width)
+                Text(text).offset(x:  0, y: -width)
+                Text(text).offset(x:  0, y: width)
+                Text(text).offset(x:  width, y: 0)
+                Text(text).offset(x: -width, y: 0)
             }
             .foregroundColor(color)
             Text(text)
         }
+    }
+}
+
+struct StrokeTextFull: View {
+    let text: String
+    let textWithAttribute: AttributedString
+    let width: CGFloat
+    let color: Color
+
+    var body: some View {
+        ZStack (alignment: .leading){
+            ZStack{
+                Text(text).offset(x:  width, y:  width)
+                Text(text).offset(x: -width, y: -width)
+                Text(text).offset(x: -width, y:  width)
+                Text(text).offset(x:  width, y: -width)
+                Text(text).offset(x:  0, y: -width)
+                Text(text).offset(x:  0, y: width)
+                Text(text).offset(x:  width, y: 0)
+                Text(text).offset(x: -width, y: 0)
+            }
+            .foregroundColor(color)
+            Text(textWithAttribute)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }

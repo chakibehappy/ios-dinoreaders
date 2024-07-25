@@ -45,9 +45,6 @@ struct CreateTabView: View {
         NavigationStack{
             ScrollView(.vertical, showsIndicators: false) {
                 ZStack{
-                    Image("home_gradient_bg")
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
                     VStack(alignment: .leading) {
                         HStack{
                             Image("new_logo")
@@ -64,7 +61,7 @@ struct CreateTabView: View {
                                 ZStack{
                                     HStack{
                                         VStack(alignment: .leading){
-                                            StrokeText(text: "Children 1", width: 1.25, color: .black)
+                                            StrokeText(text: UserDefaultManager.ProfileName, width: 1.25, color: .black)
                                                 .foregroundColor(.white)
                                                 .font(.custom("Ruddy-Black", size: 13))
                                             
@@ -130,6 +127,7 @@ struct CreateTabView: View {
                                     .clipped()
                                     .padding(.top, 10)
                                     .padding(.bottom, 20)
+                                    .shadow(radius: 25)
                             }
                             Spacer()
                         }
@@ -160,11 +158,16 @@ struct CreateTabView: View {
                         .onAppear {
                             fetchDataFromAPI()
                         }
-                        
                         Spacer()
                     }
                 }
             }
+            .background(
+                Image("home_gradient_bg")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+            )
+            
         }
     }
     
